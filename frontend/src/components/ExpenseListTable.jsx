@@ -30,22 +30,31 @@ const ExpenseListTable = ({ expenseList }) => {
 
     return (
         <div className='mt-3'>
-            <div className='grid grid-cols-4 bg-slate-200 p-2'>
-                <h2 className='font-semibold'>Name</h2>
-                <h2 className='font-semibold'>Amount</h2>
-                <h2 className='font-semibold'>Date</h2>
-                <h2 className='font-semibold'>Action</h2>
-            </div>
-            {expenseList.map((expenses, index) => (
-                <div className='grid grid-cols-4 bg-slate-200 p-2'>
-                    <h2>{expenses.name}</h2>
-                    <h2>{expenses.amount}</h2>
-                    <h2>{expenses.date}</h2>
-                    <h2 className='text-red-600 cursor-pointer'>
-                        <FaRegTrashCan onClick={() => deleteExpenses(expenses._id)} />
-                    </h2>
-                </div>
-            ))}
+            {/* {
+                expenseList.length === 0 ?
+                    <p>No expenses for this budget.</p>
+                    : (
+                        <> */}
+                            <div className='grid grid-cols-4 bg-slate-200 p-2'>
+                                <h2 className='font-semibold'>Name</h2>
+                                <h2 className='font-semibold'>Amount</h2>
+                                <h2 className='font-semibold'>Date</h2>
+                                <h2 className='font-semibold'>Action</h2>
+                            </div>
+                            {expenseList.map((expenses, index) => (
+                                <div className='grid grid-cols-4 bg-slate-200 p-2'>
+                                    <h2>{expenses.name}</h2>
+                                    <h2>{expenses.amount}</h2>
+                                    <h2>{expenses.date}</h2>
+                                    <h2 className='text-red-600 cursor-pointer'>
+                                        <FaRegTrashCan onClick={() => deleteExpenses(expenses._id)} />
+                                    </h2>
+                                </div>
+                            ))}
+                        {/* </>
+                    )
+            } */}
+
         </div>
     )
 }

@@ -423,7 +423,6 @@ const deleteBudget = async (req, res) => {
 
         const { userId } = req.body
         const { budgetId } = req.params;
-        console.log(budgetId)
 
         const budgetData = await budgetModel.findById(budgetId)
 
@@ -442,10 +441,12 @@ const deleteBudget = async (req, res) => {
         // Delete all expenses associated with the budget
         await expenseModel.deleteMany({ budgetId });
 
+        const objectBudgetId = new mongoose.Types.ObjectId(`${budgetId}`);
+
         // Update the User Model
         await userModel.updateOne(
-            { _id: userId, "budgetData.budgetId": budgetId },
-            { $pull: { budgetData: { budgetId } } } // Remove the entire budget object
+            { _id: userId },
+            { $pull: { budgetData: { budgetId: objectBudgetId } } } // Remove the entire budget object
         );
 
         res.json({ success: true, message: 'Budget Deleted Successfully' });

@@ -5,9 +5,11 @@ import { AppContext } from '../src/context/AppContext'
 import AddExpense from '../src/components/AddExpense'
 import ExpenseListTable from '../src/components/ExpenseListTable'
 import { FaRegTrashCan } from "react-icons/fa6";
+import { FaRegEdit } from "react-icons/fa";
 import AlertBox from '../src/components/AlertBox'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import BudgetForm from '../src/components/BudgetForm'
 
 const Expenses = () => {
 
@@ -15,7 +17,7 @@ const Expenses = () => {
 
   const { budgets, expenses, getUserExpenses, getUserBudgets, navigate, backendUrl, token } = useContext(AppContext)
   const [budgetData, setBudgetData] = useState(null)
-  const [expenseData, setExpenseData] = useState(null)
+  const [expenseData, setExpenseData] = useState([])
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,7 +50,7 @@ const Expenses = () => {
         if (data.success) {
             toast.success(data.message)
             getUserBudgets()
-            navigate('/create-budget')
+            navigate('/dashboard/budgets')
 
         } else {
             toast.error(data.message)
@@ -71,8 +73,12 @@ const Expenses = () => {
   return (
     <div className='p-10'>
       <h2 className='text-3xl font-bold flex items-center justify-between'>My Expenses
+        <div className='flex gap-4'>
+        <button className='flex items-center gap-2 bg-indigo-100 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
         <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
+        </div>
       </h2>
+      <BudgetForm />
       <AlertBox isOpen={isOpen} closeAlert={closeAlert} onConfirm={deleteBudget} />
       <div className='grid grid-cols-1 md:grid-cols-2 mt-6 gap-5'>
         {budgetData ? <BudgetItem budget={budgetData} expense={expenseData ?? []} />
@@ -82,7 +88,7 @@ const Expenses = () => {
       </div>
       <div className='mt-4'>
         <h2 className='font-bold text-lg'>Latest Expenses</h2>
-        <ExpenseListTable expenseList={expenses} />
+        <ExpenseListTable expenseList={expenseData} />
       </div>
     </div>
 

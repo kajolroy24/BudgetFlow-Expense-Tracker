@@ -15,6 +15,8 @@ const BudgetForm = ({ isOpen, closeForm, refreshData }) => {
     const [name, setName] = useState('')
     const [amount, setAmount] = useState('')
 
+    const [isEdit, setIsEdit] = useState(false)
+
     const onCreateBudget = async (event) => {
         event.preventDefault();
 
@@ -61,17 +63,30 @@ const BudgetForm = ({ isOpen, closeForm, refreshData }) => {
                 <form onSubmit={onCreateBudget} className='p-6 text-center sm:text-left' >
                     <h1 className='font-semibold text-lg'>Create New Budget</h1>
 
-                    <div className='mt-5'>
-                        <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" onClick={() => setOpenEmojiPicker(!openEmojiPicker)}>{emoji}</button>
-                        <div className='absolute'>
-                            <EmojiPicker open={openEmojiPicker}
-                                onEmojiClick={(e) => {
-                                    setEmoji(e.emoji)
-                                    setOpenEmojiPicker(false)
-                                }}
-                            />
-                        </div>
-                    </div>
+                    {
+                        isEdit
+                            ? <div className='mt-5'>
+                                <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" onClick={() => setOpenEmojiPicker(!openEmojiPicker)}>{emoji}</button>
+                                <div className='absolute'>
+                                    <EmojiPicker open={openEmojiPicker}
+                                        onEmojiClick={(e) => {
+                                            setEmoji(e.emoji)
+                                            setOpenEmojiPicker(false)
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            : <div className='mt-5'>
+                                <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" onClick={() => setOpenEmojiPicker(!openEmojiPicker)}>{emoji}</button>
+                                <div className='absolute'>
+                                    <EmojiPicker open={openEmojiPicker}
+                                        onEmojiClick={(e) => {
+                                            setEmoji((prev => ({ ...prev, name: emoji.target.value })))
+                                            setOpenEmojiPicker(false)
+                                        }}
+                                    />
+                                </div>
+                            </div>}
                     <div className='mt-2'>
                         <h2 className='text-black text-sm font-medium my-1'>Budget Name</h2>
                         <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2' type='text' placeholder="e.g. Home Decor" onChange={(e) => setName(e.target.value)} value={name} required />
