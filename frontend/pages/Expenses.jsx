@@ -1,0 +1,94 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import BudgetItem from '../src/components/BudgetItem'
+import { AppContext } from '../src/context/AppContext'
+import AddExpense from '../src/components/AddExpense'
+import ExpenseListTable from '../src/components/ExpenseListTable'
+import { FaRegTrashCan } from "react-icons/fa6";
+import AlertBox from '../src/components/AlertBox'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+
+const Expenses = () => {
+
+  const { budgetId } = useParams()
+
+  const { budgets, expenses, getUserExpenses, getUserBudgets, navigate, backendUrl, token } = useContext(AppContext)
+  const [budgetData, setBudgetData] = useState(null)
+  const [expenseData, setExpenseData] = useState(null)
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  function showAlert() {
+      setIsOpen(true);
+  };
+
+  function closeAlert() {
+    setIsOpen(false);
+  }
+
+  const fetchBudgetData = async () => {
+    const selectedBudget = budgets.find(budget => budget._id === budgetId)
+    setBudgetData(selectedBudget)
+
+    // Filter expenses that belong to the selected budget
+    const filteredExpenses = expenses.filter(expense => expense.budgetId === budgetId);
+    setExpenseData(filteredExpenses);
+
+    console.log(filteredExpenses)
+    console.log("Expenses from context:", expenses);
+    console.log("Budget ID from URL:", budgetId);
+  }
+
+  const deleteBudget = async () => {
+
+    try {
+
+        const { data } = await axios.delete(backendUrl + `/api/user/delete-budget/${budgetId}`, { headers: { token } })
+        if (data.success) {
+            toast.success(data.message)
+            getUserBudgets()
+            navigate('/create-budget')
+
+        } else {
+            toast.error(data.message)
+        }
+
+    } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+    }
+
+}
+
+  useEffect(() => {
+    if (budgets.length > 0) {
+      fetchBudgetData()
+    }
+  }, [budgets, expenses, budgetId])
+
+
+  return (
+    <div className='p-10'>
+      <h2 className='text-3xl font-bold flex items-center justify-between'>My Expenses
+        <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
+      </h2>
+      <AlertBox isOpen={isOpen} closeAlert={closeAlert} onConfirm={deleteBudget} />
+      <div className='grid grid-cols-1 md:grid-cols-2 mt-6 gap-5'>
+        {budgetData ? <BudgetItem budget={budgetData} expense={expenseData ?? []} />
+          : <div className='h-[150px] w-full bg-slate-200 rounded-lg animate-pulse'></div>
+        }
+        <AddExpense budgetId={budgetId} refreshData={getUserExpenses} />
+      </div>
+      <div className='mt-4'>
+        <h2 className='font-bold text-lg'>Latest Expenses</h2>
+        <ExpenseListTable expenseList={expenses} />
+      </div>
+    </div>
+
+  )
+}
+
+export default Expenses
+
+
