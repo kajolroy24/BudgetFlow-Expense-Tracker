@@ -5,46 +5,83 @@ import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const BudgetForm = ({ isOpen, closeForm, refreshData }) => {
+const BudgetForm = ({ isOpen, closeForm, refreshData, isEdit, existingBudget }) => {
 
     const { token, backendUrl } = useContext(AppContext)
 
-    const [emoji, setEmoji] = useState('😀')
     const [openEmojiPicker, setOpenEmojiPicker] = useState(false)
 
-    const [name, setName] = useState('')
-    const [amount, setAmount] = useState('')
+    // const [emoji, setEmoji] = useState(isEdit ? existingBudget?.emoji : '😀')
+    // const [name, setName] = useState(isEdit ? existingBudget?.name : '')
+    // const [amount, setAmount] = useState(isEdit ? existingBudget?.amount : '')
+    const [formData, setFormData] = useState({
+        emoji: '😀',
+        name: '',
+        amount: ''
+    });
 
-    const [isEdit, setIsEdit] = useState(false)
+    // When the form is open and is in edit mode, pre-fill the fields with existing budget data
+    useEffect(() => {
+        if (isEdit && existingBudget) {
+            setFormData({
+                emoji: existingBudget.emoji || '😀',
+                name: existingBudget.name || '',
+                amount: existingBudget.amount || '',
+            });
+        }
+    }, [isEdit, existingBudget]);
 
-    const onCreateBudget = async (event) => {
+    // Handle emoji selection
+    const handleEmojiClick = (e) => {
+        // console.log('Emoji object:', emojiObject);  // Log the emojiObject
+        setFormData((prevData) => ({
+            ...prevData,
+            emoji: e.emoji,  // Set selected emoji
+        }));
+        setOpenEmojiPicker(false);  // Close the picker after selection
+    };
+
+    // Handle form input changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    // Handle form submission (edit or create a budget)
+    const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
-            const formData = {
-                emoji,
-                name,
-                amount
-            };
-
-            const { data } = await axios.post(backendUrl + '/api/user/create-budget', formData, { headers: { token } })
-
-            if (data.success) {
-                refreshData()
-                toast.success(data.message)
-                setEmoji('😀')
-                setName('')
-                setAmount('')
-                closeForm()
+            // If isEdit is true, this means we're editing an existing budget
+            if (isEdit) {
+                // Perform the update API call (example)
+                const { data } = await axios.put(backendUrl + `/api/user/update-budget/${existingBudget._id}`, formData, { headers: { token } });
+                if (data.success) {
+                    refreshData();  // Refresh the data (probably fetch expenses and budgets)        
+                    toast.success(data.message);
+                } else {
+                    toast.error(data.message);
+                }
             } else {
-                toast.error(data.message)
+                // If isEdit is false, we are creating a new budget
+                const { data } = await axios.post(backendUrl + '/api/user/create-budget', formData, { headers: { token } });
+                if (data.success) {
+                    toast.success(data.message);
+                    refreshData();  // Refresh the data (probably fetch expenses and budgets)
+                } else {
+                    toast.error(data.message);
+                }
             }
 
+            // Close the form after submission    
+            closeForm();
         } catch (error) {
-            toast.error(error.message)
-            console.log(error)
+            console.log('Error submitting form:', error);
+            toast.error(error.message);
         }
-    }
+    };
 
     return (
         <div className={`fixed inset-0 z-50 flex justify-center items-center transition-colors
@@ -60,42 +97,48 @@ const BudgetForm = ({ isOpen, closeForm, refreshData }) => {
                         <CloseIcon />
                     </button>
                 </div>
-                <form onSubmit={onCreateBudget} className='p-6 text-center sm:text-left' >
-                    <h1 className='font-semibold text-lg'>Create New Budget</h1>
+                <form onSubmit={handleSubmit} className='p-6 text-center sm:text-left' >
+                    <h1 className='font-semibold text-lg'>{isEdit ? 'Edit Budget' : 'Create New Budget'}</h1>
 
-                    {
-                        isEdit
-                            ? <div className='mt-5'>
-                                <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" onClick={() => setOpenEmojiPicker(!openEmojiPicker)}>{emoji}</button>
-                                <div className='absolute'>
-                                    <EmojiPicker open={openEmojiPicker}
-                                        onEmojiClick={(e) => {
-                                            setEmoji(e.emoji)
-                                            setOpenEmojiPicker(false)
-                                        }}
-                                    />
-                                </div>
+                    <div className='mt-5'>
+                        <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" 
+                        type='button'
+                        onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
+                        >
+                            {formData.emoji}
+                        </button>
+                        {openEmojiPicker && (
+                            <div className="absolute z-10">
+                                <EmojiPicker
+                                    onEmojiClick={handleEmojiClick}
+                                    disableSearchBar={true}  // Optional: Disables search bar
+                                />
                             </div>
-                            : <div className='mt-5'>
-                                <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" onClick={() => setOpenEmojiPicker(!openEmojiPicker)}>{emoji}</button>
-                                <div className='absolute'>
-                                    <EmojiPicker open={openEmojiPicker}
-                                        onEmojiClick={(e) => {
-                                            setEmoji((prev => ({ ...prev, name: emoji.target.value })))
-                                            setOpenEmojiPicker(false)
-                                        }}
-                                    />
-                                </div>
-                            </div>}
+                        )}
+                    </div>
                     <div className='mt-2'>
                         <h2 className='text-black text-sm font-medium my-1'>Budget Name</h2>
-                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2' type='text' placeholder="e.g. Home Decor" onChange={(e) => setName(e.target.value)} value={name} required />
+                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
+                            type='text'
+                            placeholder="e.g. Home Decor"
+                            name='name'
+                            value={formData.name}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
                     <div className='mt-2'>
                         <h2 className='text-black text-sm font-medium my-1'>Budget Amount</h2>
-                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2' placeholder="e.g. 5000$" type="number" onChange={(e) => setAmount(e.target.value)} value={amount} required />
+                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
+                            type="number"
+                            placeholder="e.g. 5000$"
+                            name='amount'
+                            onChange={handleChange}
+                            value={formData.amount}
+                            required
+                        />
                     </div>
-                    <button type='submit' className='bg-primary text-white w-full mt-8 h-10 px-4 py-2 rounded-md text-sm'>Create Budget</button>
+                    <button type='submit' className='bg-primary text-white w-full mt-8 h-10 px-4 py-2 rounded-md text-sm'>{isEdit ? 'Update Budget' : 'Create Budget'}</button>
 
                 </form >
             </div >

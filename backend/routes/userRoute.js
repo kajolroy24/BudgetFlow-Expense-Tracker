@@ -1,5 +1,5 @@
 import express from "express";
-import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget } from "../controllers/userController.js ";
+import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget } from "../controllers/userController.js ";
 import authUser from "../middlewares/authUser.js"
 
 const userRouter = express.Router();
@@ -14,5 +14,6 @@ userRouter.post('/add-expense', authUser, addExpense)
 userRouter.get('/all-expenses', authUser, getUserExpenses)
 userRouter.delete('/delete-expense/:expenseId', authUser, deleteExpenses)
 userRouter.delete('/delete-budget/:budgetId', authUser, deleteBudget)
+userRouter.put('/update-budget/:budgetId', authUser, updateBudget)
 
 export default userRouter;

@@ -171,113 +171,6 @@ const getUserBudgets = async (req, res) => {
     }
 }
 
-// const addExpense = async (req, res) => {
-//     try {
-
-//         const { userId, budgetId, name, amount } = req.body
-
-//         const userData = await userModel.findById(userId).select(['-password', '-budgetData'])
-
-//         const budgetData = await budgetModel.findById(budgetId).select(['name', 'amount', 'emoji'])
-
-//         // Check if the user has sufficient budget before adding the expense
-//         let totalExpenses = 0;
-
-//         // Calculate the total expenses already recorded for the selected budget
-//         const user = await userModel.findOne({ _id: userId, "budgetData.budgetId": budgetId });
-
-//         if (user) {
-//             // Aggregate the existing expenses for this budget
-//             user.budgetData[0].expenseData.forEach(expense => {
-//                 totalExpenses += expense.amount; // Sum the amounts of all existing expenses
-//             });
-//         }
-
-//            // Calculate the remaining budget
-//            const remainingBudget = budgetData.amount - totalExpenses;
-
-//                 // Debugging output for remaining budget check
-//                 console.log("Total Expenses:", totalExpenses);
-//                 console.log("Remaining Budget:", remainingBudget);
-//                 console.log("Amount to Add:", amount);
-
-//         if (amount > remainingBudget) {
-//             return res.json({ success: false, message: "Expense exceeds the available budget!" });
-//         }
-
-//         const expenseData = {
-//             userId,
-//             budgetId,
-//             name,
-//             amount,
-//             userData,
-//             budgetData,
-//             createdBy: userData.email
-//         }
-
-//         // Create the new expense document
-//         const newExpense = new expenseModel(expenseData)
-//         await newExpense.save()
-
-//         const userExpenseData = {
-//             expenseId: newExpense._id,
-//             name,
-//             amount,
-//         }
-
-//         // Update the budget model with the new expense using aggregation pipeline
-//         await budgetModel.findByIdAndUpdate(
-//             budgetId,
-//             [
-//                 {
-//                     $set: {
-//                         expenseData: {
-//                             $cond: {
-//                                 if: { $eq: [{ $type: "$expenseData" }, "array"] },
-//                                 then: { $concatArrays: ["$expenseData", [userExpenseData]] },
-//                                 else: [userExpenseData]
-//                             }
-//                         }
-//                     }
-//                 }
-//             ],
-//             { new: true }
-//         );
-
-//         // Convert budgetId to ObjectId
-//         const objectBudgetId = new mongoose.Types.ObjectId(`${budgetId}`);
-
-//         const userCheck = await userModel.findOne(
-//             { _id: userId, "budgetData.budgetId": objectBudgetId },
-//             { "budgetData.$": 1 }
-//         );
-
-//         if (!userCheck) {
-//             return res.json({ success: false, message: "Budget not found in user model" });
-//         }
-
-//         // Step 1: If expenseData is null, initialize it as an empty array
-//         if (userCheck.budgetData[0].expenseData === null) {
-//             await userModel.updateOne(
-//                 { _id: userId, "budgetData.budgetId": objectBudgetId },
-//                 { $set: { "budgetData.$.expenseData": [] } }
-//             );
-//         }
-
-//         // Step 2: Push new expense into array without overwriting existing data
-//         await userModel.updateOne(
-//             { _id: userId, "budgetData.budgetId": objectBudgetId },
-//             { $push: { "budgetData.$.expenseData": { name, amount } } }
-//         );
-
-//         res.json({ success: true, message: "New Expense Added!" })
-
-//     } catch (error) {
-//         console.log(error)
-//         res.json({ success: false, message: error.message })
-//     }
-// }
-
 const addExpense = async (req, res) => {
     try {
         const { userId, budgetId, name, amount, date } = req.body;
@@ -458,5 +351,29 @@ const deleteBudget = async (req, res) => {
 
 }
 
+const updateBudget = async (req, res) => {
+    try {
 
-export { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget }
+        const { userId, emoji, name, amount } = req.body;
+        const { budgetId } = req.params;
+
+        const updatedBudget = await budgetModel.findByIdAndUpdate(budgetId,
+            { emoji, name, amount },
+            // { new: true } 
+        );
+
+        // Update the budget for the user
+        await userModel.findByIdAndUpdate(userId, {
+            $push: { budgetData: { emoji, name, amount } }
+        })
+
+        res.json({ success: true, message: "Budget Updated Sucessfully" })
+
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+    }
+}
+
+
+export { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget }

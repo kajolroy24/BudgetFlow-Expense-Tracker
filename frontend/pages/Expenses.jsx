@@ -19,10 +19,11 @@ const Expenses = () => {
   const [budgetData, setBudgetData] = useState(null)
   const [expenseData, setExpenseData] = useState([])
 
+  const [isEdit, setIsEdit] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
 
   function showAlert() {
-      setIsOpen(true);
+    setIsOpen(true);
   };
 
   function closeAlert() {
@@ -46,22 +47,30 @@ const Expenses = () => {
 
     try {
 
-        const { data } = await axios.delete(backendUrl + `/api/user/delete-budget/${budgetId}`, { headers: { token } })
-        if (data.success) {
-            toast.success(data.message)
-            getUserBudgets()
-            navigate('/dashboard/budgets')
+      const { data } = await axios.delete(backendUrl + `/api/user/delete-budget/${budgetId}`, { headers: { token } })
+      if (data.success) {
+        toast.success(data.message)
+        getUserBudgets()
+        navigate('/dashboard/budgets')
 
-        } else {
-            toast.error(data.message)
-        }
+      } else {
+        toast.error(data.message)
+      }
 
     } catch (error) {
-        console.log(error)
-        toast.error(error.message)
+      console.log(error)
+      toast.error(error.message)
     }
 
-}
+  }
+
+  const handleEditClick = () => {
+    setIsEdit(true);  // Show the edit form when clicked
+  }
+
+  const handleCancelEdit = () => {
+    setIsEdit(false);  // Hide the edit form when canceled
+  }
 
   useEffect(() => {
     if (budgets.length > 0) {
@@ -74,11 +83,17 @@ const Expenses = () => {
     <div className='p-10'>
       <h2 className='text-3xl font-bold flex items-center justify-between'>My Expenses
         <div className='flex gap-4'>
-        <button className='flex items-center gap-2 bg-indigo-100 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
-        <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
+          <button onClick={handleEditClick} className='flex items-center gap-2 bg-indigo-100 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
+          <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
         </div>
       </h2>
-      <BudgetForm />
+      <BudgetForm
+        isOpen={isEdit} 
+        closeForm={handleCancelEdit} 
+        refreshData={getUserExpenses} 
+        isEdit={isEdit} 
+        existingBudget={budgetData}
+       />
       <AlertBox isOpen={isOpen} closeAlert={closeAlert} onConfirm={deleteBudget} />
       <div className='grid grid-cols-1 md:grid-cols-2 mt-6 gap-5'>
         {budgetData ? <BudgetItem budget={budgetData} expense={expenseData ?? []} />
