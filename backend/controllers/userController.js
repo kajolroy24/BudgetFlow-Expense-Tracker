@@ -359,13 +359,34 @@ const updateBudget = async (req, res) => {
 
         const updatedBudget = await budgetModel.findByIdAndUpdate(budgetId,
             { emoji, name, amount },
-            // { new: true } 
+            { new: true } // This ensures the returned budget is the updated one
         );
 
-        // Update the budget for the user
-        await userModel.findByIdAndUpdate(userId, {
-            $push: { budgetData: { emoji, name, amount } }
-        })
+        const objectBudgetId = new mongoose.Types.ObjectId(`${budgetId}`);
+
+        // Update the User Model
+        await userModel.updateOne(
+            { _id: userId, 'budgetData.budgetId': objectBudgetId }, // Ensure we target the correct user and budgetId
+            {
+                $set: {
+                    'budgetData.$.emoji': emoji,
+                    'budgetData.$.name': name,
+                    'budgetData.$.amount': amount,
+                }
+            }
+        );
+
+        // Update the expenses related to this budget
+        await expenseModel.updateMany(
+            { budgetId: budgetId },
+            {
+                $set: {
+                    'budgetData.name': name, // Update the budget's name in the expense
+                    'budgetData.emoji': emoji, // Update the budget's emoji in the expense
+                    'budgetData.amount': amount, // Update the budget's amount in the expense
+                }
+            }
+        );
 
         res.json({ success: true, message: "Budget Updated Sucessfully" })
 
@@ -376,4 +397,24 @@ const updateBudget = async (req, res) => {
 }
 
 
-export { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget }
+const aiSummary = async (req, res) => {
+
+    try {
+        const { prompt } = req.body;
+
+        // Input validation
+        if (!prompt || typeof prompt !== 'string') {
+            return res.status(400).json({ success: false, error: "Invalid prompt." });
+        }
+
+        const response = await run(prompt);
+        res.json({ success: true, response });
+    } catch (error) {
+        console.error("Error generating advice:", error);
+        res.status(500).json({ error: "Failed to generate advice." });
+    }
+}
+
+
+
+export { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget, aiSummary }

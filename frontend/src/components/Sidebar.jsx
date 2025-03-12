@@ -22,7 +22,7 @@ const Sidebar = () => {
       id: 3,
       name: 'Expenses',
       icon: LuHandCoins,
-      path: '/dashboard/expenses/:budgetId'
+      path: '/dashboard/expenses'
     },
     {
       id: 4,

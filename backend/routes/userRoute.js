@@ -1,6 +1,7 @@
 import express from "express";
-import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget } from "../controllers/userController.js ";
+import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget, aiSummary } from "../controllers/userController.js ";
 import authUser from "../middlewares/authUser.js"
+// import { aiSummary } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
@@ -15,5 +16,6 @@ userRouter.get('/all-expenses', authUser, getUserExpenses)
 userRouter.delete('/delete-expense/:expenseId', authUser, deleteExpenses)
 userRouter.delete('/delete-budget/:budgetId', authUser, deleteBudget)
 userRouter.put('/update-budget/:budgetId', authUser, updateBudget)
+userRouter.post('/generate-advice', authUser, aiSummary)
 
 export default userRouter;

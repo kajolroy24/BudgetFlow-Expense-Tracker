@@ -90,7 +90,7 @@ const Expenses = () => {
       <BudgetForm
         isOpen={isEdit} 
         closeForm={handleCancelEdit} 
-        refreshData={getUserExpenses} 
+        refreshData={getUserBudgets} 
         isEdit={isEdit} 
         existingBudget={budgetData}
        />
@@ -102,7 +102,6 @@ const Expenses = () => {
         <AddExpense budgetId={budgetId} refreshData={getUserExpenses} />
       </div>
       <div className='mt-4'>
-        <h2 className='font-bold text-lg'>Latest Expenses</h2>
         <ExpenseListTable expenseList={expenseData} />
       </div>
     </div>

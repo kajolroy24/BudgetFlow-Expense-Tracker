@@ -22,6 +22,11 @@ const AppContextProvider = (props) => {
     }
   }, []);
 
+  const capitalize = (str) => {
+    if (!str) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   const loadUserProfileData = async () => {
     try {
 
@@ -84,7 +89,8 @@ const AppContextProvider = (props) => {
     budgets, setBudgets,
     getUserBudgets,
     expenses, setExpenses,
-    getUserExpenses
+    getUserExpenses,
+    capitalize
   }
 
   useEffect(() => {

@@ -5,7 +5,7 @@ const BudgetItem = ({ budget, expense }) => {
 
     const { navigate } = useContext(AppContext)
 
-    // Calculate total spent safely
+    // Calculate total spent 
     const totalSpent = expense.reduce((acc, curr) => acc + (curr.amount || 0), 0)
 
     const remaining = budget.amount - totalSpent;

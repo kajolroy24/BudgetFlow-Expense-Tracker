@@ -8,12 +8,15 @@ import Budgets from '../pages/Budgets'
 import Expenses from '../pages/Expenses'
 import Upgrade from '../pages/Upgrade'
 import Navbar from "./components/Navbar"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import ExpenseListTable from "./components/ExpenseListTable"
+import { AppContext } from "./context/AppContext"
 
 function App() {
 
   const location = useLocation();
   const [showNavbar, setShowNavbar] = useState(false);
+  const {expenses} = useContext(AppContext)
 
   // Only show Navbar on specific routes
   useEffect(() => {
@@ -32,7 +35,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        
+
         <Route path='/dashboard' element={
           <DashLayout>
             <Dashboard />
@@ -51,6 +54,14 @@ function App() {
           </DashLayout>
         }
         />
+        <Route path="/dashboard/expenses" element={
+          <DashLayout>
+            <div className="p-10">
+            <h2 className='text-3xl font-bold'>My Expenses</h2>
+              <ExpenseListTable expenseList={expenses} />
+            </div>
+          </DashLayout>
+        } />
         <Route path="/dashboard/upgrade" element={
           <DashLayout>
             <Upgrade />
