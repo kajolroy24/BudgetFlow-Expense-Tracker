@@ -5,6 +5,7 @@ import validator from "validator";
 import budgetModel from "../models/budgetModel.js";
 import expenseModel from "../models/expenseModel.js";
 import mongoose from "mongoose";
+import run from "../config/gemini.js";
 
 //token creation
 const createToken = (id) => {

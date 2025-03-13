@@ -4,9 +4,10 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const ExpenseListTable = ({ expenseList }) => {
+const ExpenseListTable = ({ expenseList, budgetData }) => {
 
     const { getUserExpenses, backendUrl, token } = useContext(AppContext)
+    console.log("Received Budget Data:", budgetData);
 
     const deleteExpenses = async (expenseId) => {
 
@@ -33,19 +34,21 @@ const ExpenseListTable = ({ expenseList }) => {
 
             <h2 className='font-bold text-lg'>Latest Expenses</h2>
             <div className='shadow-md rounded-lg mt-3 ltr:text-left rtl:text-right'>
-                <div className='grid grid-cols-4 text-gray-700 bg-gray-100 px-6 py-3'>
+                <div className='grid grid-cols-5 rounded-lg text-gray-700 bg-gray-100 px-6 py-3'>
+                    {/* <h2 className='font-semibold'>Emoji</h2> */}
                     <h2 className='font-semibold'>Name</h2>
                     <h2 className='font-semibold'>Amount</h2>
                     <h2 className='font-semibold'>Date</h2>
                     <h2 className='font-semibold'>Action</h2>
                 </div>
                 {expenseList.map((expenses, index) => (
-                    <div className='grid grid-cols-4 border-b border-gray-100 text-gray-600 px-6 py-3'>
+                    <div className='grid grid-cols-5 border-b border-gray-100 text-gray-600 px-6 py-3'>
+                        <h2>{budgetData ? budgetData.emoji : "No Emoji"}</h2>
                         <h2>{expenses.name}</h2>
                         <h2>{expenses.amount}</h2>
                         <h2>{expenses.date}</h2>
-                        <h2 className='text-red-600 cursor-pointer ml-3.5'>
-                            <FaRegTrashCan onClick={() => deleteExpenses(expenses._id)} />
+                        <h2 className='text-red-600 cursor-pointer flex items-center gap-1'>
+                            <FaRegTrashCan onClick={() => deleteExpenses(expenses._id)} Delete /> 
                         </h2>
                     </div>
                 ))}
