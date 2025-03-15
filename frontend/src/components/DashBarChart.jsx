@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { AppContext } from '../context/AppContext';
 
-const DashBarChart = ({ budgets, expenses, calculateTotal }) => {
+const DashBarChart = ({ calculateTotal }) => {
+
+  const {budgets, expenses} = useContext(AppContext)
 
   const data = budgets.map(budget => {
     const expense = expenses.filter(exp => exp.budgetId === budget._id);
@@ -13,7 +16,7 @@ const DashBarChart = ({ budgets, expenses, calculateTotal }) => {
   });
 
   return (
-    <div className='border border-gray-200 rounded-lg p-5'>
+    <div className=' bg-white border border-gray-200 rounded-2xl p-5'>
       <h2 className='font-bold text-lg mb-4'>Activity</h2>
       <ResponsiveContainer width={'80%'} height={300}>
         <BarChart data={data}>

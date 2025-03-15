@@ -33,8 +33,6 @@ const Expenses = () => {
   const fetchBudgetData = async () => {
     const selectedBudget = budgets.find(budget => budget._id === budgetId)
     setBudgetData(selectedBudget)
-
-    console.log("Budget Data being passed:", budgetData);
     
     // Filter expenses that belong to the selected budget
     const filteredExpenses = expenses.filter(expense => expense.budgetId === budgetId);
@@ -104,7 +102,7 @@ const Expenses = () => {
         <AddExpense budgetId={budgetId} refreshData={getUserExpenses} />
       </div>
       <div className='mt-4'>
-        <ExpenseListTable expenseList={expenseData} budgetData={budgetData} />
+        <ExpenseListTable expenseList={expenseData} budgets={budgets} />
       </div>
     </div>
 

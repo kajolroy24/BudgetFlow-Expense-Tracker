@@ -12,7 +12,7 @@ const BudgetItem = ({ budget, expense }) => {
     const spentPercentage = budget.amount > 0 ? (totalSpent / budget.amount) * 100 : 0;
 
     return (
-        <div onClick={() => { navigate(`/dashboard/expenses/${budget._id}`); scrollTo(0, 0) }} className='p-5 border border-gray-200 rounded-lg hover:shadow-md cursor-pointer h-[170px]'>
+        <div onClick={() => { navigate(`/dashboard/expenses/${budget._id}`); scrollTo(0, 0) }} className='p-5 bg-white border border-gray-200 rounded-2xl hover:shadow-md cursor-pointer h-[160px]'>
             <div className='flex gap-2 items-center justify-between'>
                 <div className='flex gap-2 items-center'>
                     <h2 className='text-2xl p-3 px-3 bg-slate-100 rounded-full'>{budget.emoji}</h2>

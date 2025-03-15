@@ -5,6 +5,7 @@ import DashBarChart from '../src/components/DashBarChart'
 import BudgetItem from '../src/components/BudgetItem'
 import ExpenseListTable from '../src/components/ExpenseListTable'
 import AiSummary from '../src/components/AiSummary'
+import DoughnutChart from '../src/components/DoughnutChart'
 
 const Dashboard = () => {
 
@@ -24,8 +25,9 @@ const Dashboard = () => {
         <Cards budgets={budgets} expenses={expenses} totalExpenses={totalExpenses} totalBudget={totalBudget} />
         <div className='grid grid-cols-1 md:grid-cols-3 mt-6 gap-5'>
           <div className='md:col-span-2'>
-            <DashBarChart budgets={budgets} expenses={expenses} calculateTotal={calculateTotal} />
-            <ExpenseListTable expenseList={expenses} />
+            <DashBarChart calculateTotal={calculateTotal} />
+            <DoughnutChart calculateTotal={calculateTotal}  />
+            <ExpenseListTable expenseList={expenses} budgets={budgets} />
           </div>
           <div className='grid gap-5'>
             <h2 className='font-bold text-lg'>Latest Budgets</h2>
