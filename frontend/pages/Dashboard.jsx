@@ -9,10 +9,9 @@ import DoughnutChart from '../src/components/DoughnutChart'
 
 const Dashboard = () => {
 
-  const { userData, capitalize, budgets, expenses } = useContext(AppContext)
+  const { userData, capitalize, budgets, expenses, calculateTotal } = useContext(AppContext)
 
   // Calculate total expenses
-  const calculateTotal = (arr) => arr.reduce((total, item) => total + item.amount, 0);
   const totalBudget = calculateTotal(budgets);
   const totalExpenses = calculateTotal(expenses);
 
@@ -25,8 +24,8 @@ const Dashboard = () => {
         <Cards budgets={budgets} expenses={expenses} totalExpenses={totalExpenses} totalBudget={totalBudget} />
         <div className='grid grid-cols-1 md:grid-cols-3 mt-6 gap-5'>
           <div className='md:col-span-2'>
-            <DashBarChart calculateTotal={calculateTotal} />
-            <DoughnutChart calculateTotal={calculateTotal}  />
+            <DashBarChart />
+            <DoughnutChart />
             <ExpenseListTable expenseList={expenses} budgets={budgets} />
           </div>
           <div className='grid gap-5'>

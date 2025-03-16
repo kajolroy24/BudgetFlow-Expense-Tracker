@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import moment from 'moment'
+import dayjs from 'dayjs'
+import LocalizedFormat from 'dayjs/plugin/LocalizedFormat'
 
 const AddExpense = ({ budgetId, refreshData }) => {
 
@@ -15,6 +16,7 @@ const AddExpense = ({ budgetId, refreshData }) => {
         event.preventDefault();
 
         try {
+            dayjs.extend(LocalizedFormat)
             const currentDate = moment().format('ll')
 
             const formData = {

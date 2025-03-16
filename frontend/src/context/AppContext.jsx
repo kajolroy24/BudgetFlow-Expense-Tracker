@@ -22,6 +22,8 @@ const AppContextProvider = (props) => {
     }
   }, []);
 
+  const calculateTotal = (arr) => arr.reduce((total, item) => total + item.amount, 0);
+
   const capitalize = (str) => {
     if (!str) return str;
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -90,7 +92,7 @@ const AppContextProvider = (props) => {
     getUserBudgets,
     expenses, setExpenses,
     getUserExpenses,
-    capitalize
+    capitalize, calculateTotal
   }
 
   useEffect(() => {

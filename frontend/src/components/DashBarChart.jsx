@@ -2,9 +2,9 @@ import React, { useContext } from 'react'
 import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { AppContext } from '../context/AppContext';
 
-const DashBarChart = ({ calculateTotal }) => {
+const DashBarChart = () => {
 
-  const {budgets, expenses} = useContext(AppContext)
+  const {budgets, expenses, calculateTotal} = useContext(AppContext)
 
   const data = budgets.map(budget => {
     const expense = expenses.filter(exp => exp.budgetId === budget._id);
