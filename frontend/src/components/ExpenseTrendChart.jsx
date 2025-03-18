@@ -7,6 +7,9 @@ const ExpenseTrendChart = () => {
     const { expenses, budgets } = useContext(AppContext);
     const [view, setView] = useState("weekly"); // Toggle state for weekly/monthly
 
+    const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#2CD3C4", "#FFA26B", "#FF5C8A", "#B39DDB"];
+    const getColor = (index) => colors[index % colors.length];
+
     // Get start date based on view
     const startDate = view === "weekly"
         ? dayjs().subtract(7, "day").startOf("day") // Last 7 days
@@ -19,9 +22,9 @@ const ExpenseTrendChart = () => {
     const allDates = [...new Set(filteredExpenses.map(expense => dayjs(expense.date).format("YYYY-MM-DD")))].sort();
 
     // Organize expenses by category and date
-    const categoryData = budgets.map(budget => ({
+    const categoryData = budgets.map((budget, index) => ({
         name: budget.name,
-        color: budget.color || "#" + ((Math.random() * 0xffffff) << 0).toString(16), // Random color for each category
+        color: getColor(index),
         values: allDates.map(date => {
             const dailyExpenses = filteredExpenses
                 .filter(expense => expense.budgetId === budget._id && dayjs(expense.date).format("YYYY-MM-DD") === date)
@@ -40,34 +43,43 @@ const ExpenseTrendChart = () => {
     });
 
     return (
-        <div className="p-4 bg-white shadow-md rounded-lg">
-            <div className="flex justify-between items-center mb-3">
-                <h3 className="text-xl font-bold">Expense Trends</h3>
+        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl w-full">
+            <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl text-gray-700 font-semibold">Expense Trends</h3>
                 <div className="flex gap-2">
-                    <button variant={view === "weekly" ? "default" : "outline"} onClick={() => setView("weekly")}>Weekly</button>
-                    <button variant={view === "monthly" ? "default" : "outline"} onClick={() => setView("monthly")}>Monthly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary text-white" : "bg-purple-100 outline outline-primary text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "monthly" ? "bg-primary text-white" : "bg-purple-100 outline outline-primary text-primary"}`} onClick={() => setView("monthly")}>Monthly</button>
                 </div>
             </div>
 
             <ResponsiveContainer width="100%" height={300}>
                 <AreaChart data={chartData}>
+                <defs>
+            {categoryData.map((category, index) => (
+              <linearGradient key={index} id={`color${index}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor={category.color} stopOpacity={0.6} />
+                <stop offset="95%" stopColor={category.color} stopOpacity={0} />
+              </linearGradient>
+            ))}
+          </defs>
                     <XAxis dataKey="date" />
                     <YAxis />
                     <CartesianGrid strokeDasharray="3 3" />
-                    {categoryData.map((category) => (
+                    {categoryData.map((category, index) => (
                         <Area
                             key={category.name}
                             type="monotone"
                             dataKey={category.name}
                             stroke={category.color}
-                            fill={category.color}
-                            fillOpacity={0.3}
+                            strokeWidth={2}
+                            fill={`url(#color${index})`}
+                            fillOpacity={0.8}
                         />
                     ))}
                     <Tooltip />
                     <Legend
                         content={({ payload }) => (
-                            <div className="flex justify-center space-x-4 mt-2">
+                            <div className="flex flex-wrap justify-center space-x-4 mt-3 bg-gray-100 p-2 rounded-2xl">
                                 {payload.map((entry, index) => (
                                     <div key={`item-${index}`} className="flex items-center space-x-2">
                                         <span
@@ -77,7 +89,7 @@ const ExpenseTrendChart = () => {
                                         <span className="text-gray-700">{entry.value}</span>
                                     </div>
                                 ))}
-                                      </div>
+                            </div>
                         )}
                     />
                 </AreaChart>

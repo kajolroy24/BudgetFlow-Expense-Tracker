@@ -17,7 +17,7 @@ const AddExpense = ({ budgetId, refreshData }) => {
 
         try {
             dayjs.extend(LocalizedFormat)
-            const currentDate = moment().format('ll')
+            const currentDate = dayjs().format('ll')
 
             const formData = {
                 budgetId,

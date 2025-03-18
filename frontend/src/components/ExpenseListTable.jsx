@@ -32,7 +32,7 @@ const ExpenseListTable = ({ expenseList }) => {
         <div className='mt-3'>
 
             <h2 className='font-bold text-lg'>Latest Expenses</h2>
-            <div className='shadow-md rounded-2xl mt-3 max-sm:text-sm ltr:text-left rtl:text-left overflow-hidden'>
+            <div className='shadow hover:shadow-md rounded-2xl mt-3 max-sm:text-sm ltr:text-left rtl:text-left overflow-hidden'>
                 <div className='grid grid-cols-4 sm:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] rounded-t-2xl text-gray-700 border-b border-slate-300 bg-slate-50 px-8 py-3.5'>
                     <h2 className='max-sm:hidden'>#</h2>
                     <h2 className='font-semibold max-sm:hidden'>Budget</h2>
