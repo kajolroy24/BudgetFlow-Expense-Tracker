@@ -64,7 +64,7 @@ const ExpenseTrendChart = () => {
           </defs>
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid strokeDasharray="4 4" stroke="#E0E0E0" />
                     {categoryData.map((category, index) => (
                         <Area
                             key={category.name}
@@ -76,7 +76,7 @@ const ExpenseTrendChart = () => {
                             fillOpacity={0.8}
                         />
                     ))}
-                    <Tooltip />
+                    <Tooltip contentStyle={{ borderRadius: '10px', backgroundColor: '#faf5ff' }} />
                     <Legend
                         content={({ payload }) => (
                             <div className="flex flex-wrap justify-center space-x-4 mt-3 bg-gray-100 p-2 rounded-2xl">

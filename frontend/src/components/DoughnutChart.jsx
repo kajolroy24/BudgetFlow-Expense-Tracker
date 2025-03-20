@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { PieChart, Pie, Cell, Tooltip, Label } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Label, Customized } from "recharts";
 import { AppContext } from '../context/AppContext';
 
 const DoughnutChart = () => {
@@ -45,14 +45,27 @@ const DoughnutChart = () => {
                         ))}
 
                         {/* Total Expenses */}
-                        <Label className="text-xl font-bold mb-5" value="Total" />
-                        <Label position="center" fill='#00000' className="text-3xl font-bold" value={`₹${totalExpenses}`} />
+                        <Label position="center" dy={-12} className="text-lg font-medium mb-10" value="Total" />
+                        
+                        <Label position="center" dy={12} fill='#00000' className="text-3xl font-semibold" value={`₹${totalExpenses}`} />
 
                     </Pie>
-
-                    <Tooltip />
+                
+                    
+                    <Tooltip contentStyle={{ borderRadius: '10px', backgroundColor: '#faf5ff' }}
+                    formatter={(value, name, props) => {
+                        const color = props.payload.color; // Get the color from the payload
+                        return [
+                            <span style={{ color }} key="tooltip-text">
+                                {name}: ₹{value}
+                                </span>
+                        ];
+                    }} 
+                    />
+        
                 </PieChart>
             </div>
+
             {/* Custom Legend */}
             <div className="flex flex-wrap justify-center gap-3 bg-gray-100 p-2 rounded-2xl">
                 {data.map((item, index) => (
