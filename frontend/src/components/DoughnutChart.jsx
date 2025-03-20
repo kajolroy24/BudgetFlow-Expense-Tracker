@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { PieChart, Pie, Cell, Tooltip, Label, Customized } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Label, ResponsiveContainer } from "recharts";
 import { AppContext } from '../context/AppContext';
 
 const DoughnutChart = () => {
@@ -26,44 +26,46 @@ const DoughnutChart = () => {
     const totalExpenses = data.reduce((sum, item) => sum + (item.value || 0), 0)
 
     return (
-        <div className='p-6 bg-white rounded-2xl w-md shadow hover:shadow-md'>
+        <div className='p-6 bg-white rounded-2xl shadow hover:shadow-md'>
             <h3 className="text-gray-700 text-center font-semibold text-xl">Expense Breakdown</h3>
-            <div className='flex justify-center my-4'>
+            <div className='flex justify-center'>
 
-                <PieChart width={200} height={200}>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={75}
-                        outerRadius={100}
-                        dataKey="value"
-                        stroke="none"
-                    >
-                        {data.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
+                <ResponsiveContainer width={'100%'} height={250}>
+                    <PieChart width={200} height={200}>
+                        <Pie
+                            data={data}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius={75}
+                            outerRadius={100}
+                            dataKey="value"
+                            stroke="none"
+                        >
+                            {data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color} />
+                            ))}
 
-                        {/* Total Expenses */}
-                        <Label position="center" dy={-12} className="text-lg font-medium mb-10" value="Total" />
-                        
-                        <Label position="center" dy={12} fill='#00000' className="text-3xl font-semibold" value={`₹${totalExpenses}`} />
+                            {/* Total Expenses */}
+                            <Label position="center" dy={-12} className="text-lg font-medium mb-10" value="Total" />
 
-                    </Pie>
-                
-                    
-                    <Tooltip contentStyle={{ borderRadius: '10px', backgroundColor: '#faf5ff' }}
-                    formatter={(value, name, props) => {
-                        const color = props.payload.color; // Get the color from the payload
-                        return [
-                            <span style={{ color }} key="tooltip-text">
-                                {name}: ₹{value}
-                                </span>
-                        ];
-                    }} 
-                    />
-        
-                </PieChart>
+                            <Label position="center" dy={12} fill='#00000' className="text-3xl font-semibold" value={`₹${totalExpenses}`} />
+
+                        </Pie>
+
+
+                        <Tooltip contentStyle={{ borderRadius: '10px', backgroundColor: '#faf5ff' }}
+                            formatter={(value, name, props) => {
+                                const color = props.payload.color; // Get the color from the payload
+                                return [
+                                    <span style={{ color }} key="tooltip-text">
+                                        {name}: ₹{value}
+                                    </span>
+                                ];
+                            }}
+                        />
+
+                    </PieChart>
+                </ResponsiveContainer>
             </div>
 
             {/* Custom Legend */}

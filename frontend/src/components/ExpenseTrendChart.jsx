@@ -43,8 +43,8 @@ const ExpenseTrendChart = () => {
     });
 
     return (
-        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl w-full">
-            <div className="flex justify-between items-center mb-4">
+        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl lg:w-full">
+            <div className="flex justify-between items-center mb-5">
                 <h3 className="text-xl text-gray-700 font-semibold">Expense Trends</h3>
                 <div className="flex gap-2">
                     <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary text-white" : "bg-purple-100 outline outline-primary text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
@@ -52,7 +52,7 @@ const ExpenseTrendChart = () => {
                 </div>
             </div>
 
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={310}>
                 <AreaChart data={chartData}>
                 <defs>
             {categoryData.map((category, index) => (
