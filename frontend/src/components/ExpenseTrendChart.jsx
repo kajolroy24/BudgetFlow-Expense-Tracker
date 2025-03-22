@@ -43,7 +43,7 @@ const ExpenseTrendChart = () => {
     });
 
     return (
-        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl lg:w-full">
+        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl w-full">
             <div className="flex justify-between items-center mb-5">
                 <h3 className="text-xl text-gray-700 font-semibold">Expense Trends</h3>
                 <div className="flex gap-2">

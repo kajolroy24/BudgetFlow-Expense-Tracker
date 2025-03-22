@@ -16,9 +16,9 @@ const DashBarChart = () => {
   });
 
   return (
-    <div className=' bg-white lg:w-xl border border-gray-200 rounded-2xl p-5'>
+    <div className=' bg-white w-full border border-gray-200 rounded-2xl p-5'>
       <h2 className='font-semibold text-xl mb-4 text-gray-700'>Spending Analysis</h2>
-      <ResponsiveContainer width={'100%'} height={300}>
+      <ResponsiveContainer width={'100%'} height={320}>
         <BarChart data={data} barSize={30} >
           <CartesianGrid strokeDasharray="5 5" stroke="#E0E0E0" vertical={false} />
           <XAxis dataKey="name" />
