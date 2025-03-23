@@ -6,7 +6,7 @@ const DoughnutChart = () => {
 
     const { budgets, expenses, calculateTotal } = useContext(AppContext)
 
-    const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#2CD3C4", "#FFA26B", "#FF5C8A", "#B39DDB"];
+    const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#BFEE48", "#3D63FF"];
     const getColor = (index) => colors[index % colors.length];
 
     const data = budgets.map((budget, index) => {

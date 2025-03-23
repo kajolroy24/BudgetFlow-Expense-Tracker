@@ -7,7 +7,7 @@ const ExpenseTrendChart = () => {
     const { expenses, budgets } = useContext(AppContext);
     const [view, setView] = useState("weekly"); // Toggle state for weekly/monthly
 
-    const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#2CD3C4", "#FFA26B", "#FF5C8A", "#B39DDB"];
+    const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#BFEE48", "#3D63FF"];
     const getColor = (index) => colors[index % colors.length];
 
     // Get start date based on view
@@ -47,8 +47,8 @@ const ExpenseTrendChart = () => {
             <div className="flex justify-between items-center mb-5">
                 <h3 className="text-xl text-gray-700 font-semibold">Expense Trends</h3>
                 <div className="flex gap-2">
-                    <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary text-white" : "bg-purple-100 outline outline-primary text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
-                    <button className={`px-2 py-1 rounded-md text-sm ${view === "monthly" ? "bg-primary text-white" : "bg-purple-100 outline outline-primary text-primary"}`} onClick={() => setView("monthly")}>Monthly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary text-white" : "bg-purple-100 text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "monthly" ? "bg-primary text-white" : "bg-purple-100 text-primary"}`} onClick={() => setView("monthly")}>Monthly</button>
                 </div>
             </div>
 

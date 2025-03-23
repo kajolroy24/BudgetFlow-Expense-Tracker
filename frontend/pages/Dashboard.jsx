@@ -16,6 +16,10 @@ const Dashboard = () => {
   const totalBudget = calculateTotal(budgets);
   const totalExpenses = calculateTotal(expenses);
 
+    // Get the latest 4 expenses
+    const latestExpenses = expenses.slice(0, 4);
+    const latestBudgets = budgets.slice(0, 4);
+
   return (
     <div>
       <div className='p-8'>
@@ -34,14 +38,14 @@ const Dashboard = () => {
 
             <ExpenseTrendChart />
 
-            <ExpenseListTable expenseList={expenses} budgets={budgets} />
+            <ExpenseListTable expenseList={latestExpenses} budgets={budgets} />
           </div>
 
           <div className='flex flex-col gap-5'>
             <DoughnutChart />
 
             <h2 className='font-semibold text-gray-700 text-xl'>Latest Budgets</h2>
-            {budgets.map((budget, index) => {
+            {latestBudgets.map((budget, index) => {
               const budgetExpenses = expenses.filter(expense => expense.budgetId === budget._id);
               return <BudgetItem
                 key={index}
