@@ -40,6 +40,7 @@ const DoughnutChart = () => {
                             outerRadius={100}
                             dataKey="value"
                             stroke="none"
+                            paddingAngle={1}
                         >
                             {data.map((entry, index) => (
                                 <Cell key={`cell-${index}`} fill={entry.color} />

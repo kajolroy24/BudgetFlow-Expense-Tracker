@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, Link } from 'react-router-dom'
-import { LuLayoutGrid, LuPiggyBank, LuHandCoins, LuShieldCheck } from 'react-icons/lu'
+import { LuLayoutGrid, LuPiggyBank, LuHandCoins, LuShieldCheck, LuLogOut } from 'react-icons/lu'
+import { PiUserCircle } from "react-icons/pi";
+import { AppContext } from '../context/AppContext';
 
 const Sidebar = () => {
+
+  const {token, setToken, navigate} = useContext(AppContext)
+
+  const logout = () => {
+    setToken(false)
+    localStorage.removeItem('token')
+    navigate('/')
+}
 
   const menulist = [
     {
@@ -24,17 +34,17 @@ const Sidebar = () => {
       icon: LuHandCoins,
       path: '/dashboard/expenses'
     },
-    {
-      id: 4,
-      name: 'Upgrade',
-      icon: LuShieldCheck,
-      path: '/dashboard/upgrade'
-    }
+    // {
+    //   id: 4,
+    //   name: 'Upgrade',
+    //   icon: LuShieldCheck,
+    //   path: '/dashboard/upgrade'
+    // }
   ]
 
   return (
-    <div className='h-screen p-5 border border-gray-200 shadow-sm'>
-      <img src={assets.logo} alt="logo" height={100} width={160} />
+    <div className='min-h-screen p-5 border-r border-gray-200'>
+      <img src={assets.logo} alt="logo" height={100} width={160} /> 
       <div className='mt-5'>
 
         {menulist.map((menu, index) => (
@@ -51,11 +61,31 @@ const Sidebar = () => {
         ))}
 
       </div>
+
+      <hr className="my-4 border-gray-300" />
+      {/* 
       <div className='flex gap-2 items-center fixed bottom-10 p-5'>
-        {/* <UserButton /> */}
         Profile
+      </div> */}
+
+      <NavLink
+        to={'/'}
+        className={({ isActive }) =>
+          `flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md mb-2 hover:text-primary hover:bg-blue-100 
+              ${isActive ? 'text-primary bg-blue-100' : ''}`}>
+        <PiUserCircle className='w-7 h-7' />
+        <p>Profile</p>
+      </NavLink>
+
+      <div
+        className="flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md mb-2 hover:text-red-500 hover:bg-red-100"
+        onClick={logout}
+      >
+        <LuLogOut className='w-6 h-6' />
+        <p>Logout</p>
       </div>
-    </div >
+    </div>
+
   )
 }
 

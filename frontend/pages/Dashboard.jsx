@@ -24,7 +24,7 @@ const Dashboard = () => {
     <div>
       <div className='p-8'>
         <h2 className='font-bold text-3xl'>👋 Hi, {capitalize(userData.name)}</h2>
-        <p className='text-gray-500'>Here's what's happening with your money. Let's manage your expenses.</p>
+        <p className='text-gray-500 mt-2'>Here's what's happening with your money. Let's manage your expenses.</p>
 
         <AiSummary />
 
