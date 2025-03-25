@@ -7,8 +7,8 @@ const DashboardNav = () => {
   const { token, userData } = useContext(AppContext)
 
   return (
-    <div className='py-4 px-8 border-b border-gray-200 flex items-center justify-between'>
-      <img src={assets.logo} alt="logo" height={100} width={160} /> 
+    <div className='py-4 px-8 border-b border-gray-200 flex items-center justify-end'>
+      {/* <img src={assets.logo} alt="logo" height={100} width={160} />  */}
       <div className='flex items-center justify-end'>
         <button className='hidden md:flex items-center'>
           <img className='w-11 rounded-full mr-3' src={userData.image} alt="image" />

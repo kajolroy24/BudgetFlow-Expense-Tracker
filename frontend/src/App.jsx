@@ -10,6 +10,7 @@ import Upgrade from '../pages/Upgrade'
 import Navbar from "./components/Navbar"
 import { useEffect, useState } from "react";
 import ExpenseDataPage from "../pages/ExpenseDataPage"
+import Profile from "../pages/Profile"
 
 function App() {
 
@@ -60,6 +61,12 @@ function App() {
         <Route path="/dashboard/upgrade" element={
           <DashLayout>
             <Upgrade />
+          </DashLayout>
+        }
+        />
+        <Route path="/dashboard/profile" element={
+          <DashLayout>
+            <Profile />
           </DashLayout>
         }
         />

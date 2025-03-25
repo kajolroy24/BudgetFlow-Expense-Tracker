@@ -46,11 +46,11 @@ const ExpenseListTable = ({ expenseList }) => {
                     return (
                         <div key={expenses._id} className='grid grid-cols-4 sm:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-sm:grid-cols-4 bg-white border-b border-gray-100 text-gray-600 px-8 py-2.5 items-center hover:bg-slate-50'>
                             <h2 className='max-sm:hidden'>{index + 1}</h2>
-                            <div className='flex font-semibold items-center gap-2 max-sm:hidden'>
+                            <div className='flex capitalize font-semibold items-center gap-2 max-sm:hidden'>
                                 <h2 className='text-xl p-2 bg-slate-100 rounded-full'>{budget ? budget.emoji : "No Emoji"}</h2>
                                 {budget.name}
                             </div>
-                            <h2>{expenses.name}</h2>
+                            <h2 className='capitalize'>{expenses.name}</h2>
                             <h2>Rs. {expenses.amount}</h2>
                             <h2>{expenses.date}</h2>
                             <h2 onClick={() => deleteExpenses(expenses._id)} className='' >

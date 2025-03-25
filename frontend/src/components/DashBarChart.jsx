@@ -40,7 +40,7 @@ const DashBarChart = () => {
             )}
           />
 
-          <Bar dataKey="expense" fill='#4845d2' name="Expense" radius={[20, 20, 0, 0]} />
+          <Bar dataKey="expense" fill='#7748ee' name="Expense" radius={[20, 20, 0, 0]} />
           <Bar dataKey="budget" fill='#43d9e2' name="Budget" radius={[20, 20, 0, 0]} />
 
           

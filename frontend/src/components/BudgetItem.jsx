@@ -17,7 +17,7 @@ const BudgetItem = ({ budget, expense }) => {
                 <div className='flex gap-2 items-center'>
                     <h2 className='text-2xl p-3 px-3 bg-slate-100 rounded-full'>{budget.emoji}</h2>
                     <div>
-                        <h2 className='font-bold'>{budget.name}</h2>
+                        <h2 className='font-bold capitalize'>{budget.name}</h2>
                         <h2 className='text-sm text-gray-500'>{expense.length || 0} items</h2>
                     </div>
                 </div>

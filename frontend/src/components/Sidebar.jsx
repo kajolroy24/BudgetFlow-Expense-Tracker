@@ -43,9 +43,9 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className='min-h-screen p-5 border-r border-gray-200'>
-      <img src={assets.logo} alt="logo" height={100} width={160} /> 
-      <div className='mt-5'>
+    <div className='min-h-screen py-5 pr-8 border-r border-gray-200'>
+      <img className='ml-5' src={assets.logo} alt="logo" height={100} width={160} /> 
+      <div className='mt-12'>
 
         {menulist.map((menu, index) => (
           <NavLink
@@ -53,8 +53,8 @@ const Sidebar = () => {
             to={menu.path}
             end={menu.path === '/dashboard'} // Applies "end" only for the dashboard
             className={({ isActive }) =>
-              `flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md mb-2 hover:text-primary hover:bg-blue-100 
-              ${isActive ? 'text-primary bg-blue-100' : ''}`}>
+              `flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-primary hover:bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200
+              ${isActive ? 'text-primary bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200' : ''}`}>
             <menu.icon className="w-6 h-6" />
             {menu.name}
           </NavLink>
@@ -69,16 +69,16 @@ const Sidebar = () => {
       </div> */}
 
       <NavLink
-        to={'/'}
+        to={'/dashboard/profile'}
         className={({ isActive }) =>
-          `flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md mb-2 hover:text-primary hover:bg-blue-100 
-              ${isActive ? 'text-primary bg-blue-100' : ''}`}>
+          `flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-primary hover:bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200
+              ${isActive ? 'text-primary bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200' : ''}`}>
         <PiUserCircle className='w-7 h-7' />
         <p>Profile</p>
       </NavLink>
 
       <div
-        className="flex gap-2 items-center text-gray-500 font-medium p-5 cursor-pointer rounded-md mb-2 hover:text-red-500 hover:bg-red-100"
+        className="flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-red-500 hover:bg-red-100"
         onClick={logout}
       >
         <LuLogOut className='w-6 h-6' />
