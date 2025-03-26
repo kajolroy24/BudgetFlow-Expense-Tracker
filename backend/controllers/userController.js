@@ -112,6 +112,38 @@ const getProfile = async (req, res) => {
 
 }
 
+const updateProfile = async (req, res) => {
+
+    try {
+
+        const { userId, name, phone, dob, gender } = req.body
+        const imageFile = req.file
+
+        if (!name || !phone || !dob || !gender) {
+            return res.json({ success: false, message: 'Data Missing' })
+        }
+
+        await userModel.findByIdAndUpdate(userId, { name, phone, dob, gender })
+
+        if (imageFile) {
+
+            // upload image to cloudinary
+            const imageUpload = await cloudinary.uploader.upload(imageFile.path, { resource_type: 'image' })
+            const imageURL = imageUpload.secure_url
+
+            await userModel.findByIdAndUpdate(userId, { image: imageURL })
+        }
+
+        res.json({ success: true, message: "Profile Updated" })
+
+    } catch (error) {
+
+        console.log(error)
+        res.json({ success: false, message: error.message })
+
+    }
+}
+
 const createBudget = async (req, res) => {
     try {
 
@@ -418,4 +450,8 @@ const aiSummary = async (req, res) => {
 
 
 
-export { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget, aiSummary }
+export {
+    loginUser, registerUser, getProfile, createBudget, getUserBudgets,
+    addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget,
+    aiSummary, updateProfile
+}
