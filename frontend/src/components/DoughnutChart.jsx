@@ -26,7 +26,7 @@ const DoughnutChart = () => {
     const totalExpenses = data.reduce((sum, item) => sum + (item.value || 0), 0)
 
     return (
-        <div className='p-6 bg-white rounded-2xl shadow hover:shadow-md'>
+        <div className='p-6 bg-white rounded-2xl max-sm:mb-5 shadow hover:shadow-md'>
             <h3 className="text-gray-700 text-center font-semibold text-xl">Expense Breakdown</h3>
             <div className='flex justify-center'>
 

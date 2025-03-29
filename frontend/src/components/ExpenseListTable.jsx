@@ -4,7 +4,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const ExpenseListTable = ({ expenseList }) => {
+const ExpenseListTable = ({ expenseList, variant }) => {
 
     const { getUserExpenses, backendUrl, token, budgets } = useContext(AppContext)
 
@@ -32,10 +32,10 @@ const ExpenseListTable = ({ expenseList }) => {
         <div className='mt-3'>
 
             <h2 className='font-bold text-lg'>Latest Expenses</h2>
-            <div className='shadow hover:shadow-md rounded-2xl mt-3 max-sm:text-sm ltr:text-left rtl:text-left overflow-hidden'>
-                <div className='grid grid-cols-4 sm:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] rounded-t-2xl text-gray-700 border-b border-slate-300 bg-slate-50 px-8 py-3.5'>
+            <div className='shadow hover:shadow-md rounded-2xl mt-3 ltr:text-left rtl:text-left overflow-hidden'>
+                <div className={`grid ${variant === 'dashboard' ? 'md:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-xl:hidden' : 'lg:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-lg:hidden'} rounded-t-2xl text-gray-700 border-b border-slate-300 bg-slate-50 px-8 py-3.5`}>
                     <h2 className='max-sm:hidden'>#</h2>
-                    <h2 className='font-semibold max-sm:hidden'>Budget</h2>
+                    <h2 className='font-semibold'>Budget</h2>
                     <h2 className='font-semibold'>Expense</h2>
                     <h2 className='font-semibold'>Amount</h2>
                     <h2 className='font-semibold'>Date</h2>
@@ -44,20 +44,34 @@ const ExpenseListTable = ({ expenseList }) => {
                 {expenseList.map((expenses, index) => {
                     const budget = budgets.find(budget => budget._id === expenses.budgetId);
                     return (
-                        <div key={expenses._id} className='grid grid-cols-4 sm:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-sm:grid-cols-4 bg-white border-b border-gray-100 text-gray-600 px-8 py-2.5 items-center hover:bg-slate-50'>
-                            <h2 className='max-sm:hidden'>{index + 1}</h2>
-                            <div className='flex capitalize font-semibold items-center gap-2 max-sm:hidden'>
-                                <h2 className='text-xl p-2 bg-slate-100 rounded-full'>{budget ? budget.emoji : "No Emoji"}</h2>
-                                {budget.name}
-                            </div>
-                            <h2 className='capitalize'>{expenses.name}</h2>
-                            <h2>Rs. {expenses.amount}</h2>
-                            <h2>{expenses.date}</h2>
-                            <h2 onClick={() => deleteExpenses(expenses._id)} className='' >
-                                <button className='flex items-center justify-center gap-1 sm:bg-red-100 text-red-600 md:w-20 py-2 rounded-md text-xs font-medium'><FaRegTrashCan />
+                        <div key={expenses._id} className={`grid ${variant === 'dashboard' ? 'xl:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-xl:px-8 max-xl:py-6' : 'lg:grid-cols-[0.7fr_2fr_2fr_2fr_2fr_1fr] max-lg:px-8 max-lg:py-6'} bg-white border-b border-gray-100 text-gray-700 px-8 py-2.5 items-center hover:bg-slate-50`}>
+                            <h2 className={`${variant === 'dashboard' ? 'max-xl:hidden' : 'max-lg:hidden'}`}>{index + 1}</h2>
+                            <div className='flex justify-between items-center'>
+                                <div className={`flex capitalize font-medium items-center gap-2 ${variant === 'dashboard' ? 'max-xl:mb-1' : 'max-lg:mb-1'}`}>
+                                    <h2 className='text-xl p-2 bg-slate-100 rounded-full'>{budget ? budget.emoji : "No Emoji"}</h2>
+                                    {budget.name}
+                                </div>
+                                <button onClick={() => deleteExpenses(expenses._id)} className={`flex items-center justify-center gap-1 bg-red-100 text-red-600 py-1.5 px-2 rounded-md text-xs font-medium ${variant === 'dashboard' ? 'max-xl:flex xl:hidden' : 'max-lg:flex lg:hidden'}`}><FaRegTrashCan />
                                 Delete
-                                </button>
-                            </h2>
+                            </button>
+                            </div>
+                            <div className={`flex ${variant === 'dashboard' ? 'max-xl:mb-1' : 'max-lg:mb-1'}`}>
+                                <p className={`mr-1 text-gray-700 font-semibold ${variant === 'dashboard' ? 'xl:hidden' : 'lg:hidden'}`}>Expense Name:</p>
+                                <h2 className='capitalize'>{expenses.name}</h2>
+                            </div>
+                            <div className={`flex ${variant === 'dashboard' ? 'max-xl:mb-1' : 'max-lg:mb-1'}`}>
+                                <p className={`mr-1 text-gray-700 font-semibold ${variant === 'dashboard' ? 'xl:hidden' : 'lg:hidden'}`}>Expense Amount:</p>
+                                <h2>Rs. {expenses.amount}</h2>
+                            </div>
+                            <div className='flex'>
+                                <p className={`mr-1 text-gray-700 font-semibold ${variant === 'dashboard' ? 'xl:hidden' : 'lg:hidden'}`}>Date:</p>
+                                <h2>{expenses.date}</h2>
+                            </div>
+
+                            <button onClick={() => deleteExpenses(expenses._id)} className={`flex items-center justify-center gap-1 bg-red-100 text-red-600 md:w-20 py-2 rounded-md text-xs font-medium ${variant === 'dashboard' ? 'max-xl:hidden' : 'max-lg:hidden'}`}><FaRegTrashCan />
+                                Delete
+                            </button>
+
                         </div>
                     )
                 })

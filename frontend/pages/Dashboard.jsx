@@ -30,7 +30,7 @@ const Dashboard = () => {
 
         <Cards budgets={budgets} expenses={expenses} totalExpenses={totalExpenses} totalBudget={totalBudget} />
 
-        <div className='grid grid-cols-1 md:grid-cols-3 mt-6 gap-5'>
+        <div className='grid grid-cols-1 lg:grid-cols-3 mt-6 gap-5'>
           <div className='md:col-span-2 flex flex-col gap-5'>
             <div className='flex-grow'>
               <DashBarChart />
@@ -38,7 +38,7 @@ const Dashboard = () => {
 
             <ExpenseTrendChart />
 
-            <ExpenseListTable expenseList={latestExpenses} budgets={budgets} />
+            <ExpenseListTable expenseList={latestExpenses} budgets={budgets} variant="dashboard" />
           </div>
 
           <div className='flex flex-col gap-5'>

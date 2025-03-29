@@ -62,7 +62,7 @@ const Sidebar = () => {
 
       </div>
 
-      <hr className="my-4 border-gray-300" />
+      <hr className="ml-6 mt-4 mb-4 border-gray-300" />
       {/* 
       <div className='flex gap-2 items-center fixed bottom-10 p-5'>
         Profile
@@ -73,7 +73,7 @@ const Sidebar = () => {
         className={({ isActive }) =>
           `flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-primary hover:bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200
               ${isActive ? 'text-primary bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200' : ''}`}>
-        <PiUserCircle className='w-7 h-7' />
+        <PiUserCircle className='w-6.5 h-6.5' />
         <p>Profile</p>
       </NavLink>
 

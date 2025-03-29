@@ -6,6 +6,7 @@ import budgetModel from "../models/budgetModel.js";
 import expenseModel from "../models/expenseModel.js";
 import mongoose from "mongoose";
 import run from "../config/gemini.js";
+import { v2 as cloudinary } from 'cloudinary'
 
 //token creation
 const createToken = (id) => {
