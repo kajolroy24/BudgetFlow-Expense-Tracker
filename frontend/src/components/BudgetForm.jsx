@@ -88,7 +88,7 @@ const BudgetForm = ({ isOpen, closeForm, refreshData, isEdit, existingBudget }) 
             ${isOpen ? 'visible bg-gray-500/75' : 'invisible'
             }`}
         >
-            <div className={`bg-white sm:rounded-lg shadow-2xl w-full max-w-lg transition-all
+            <div className={`bg-white sm:rounded-2xl shadow-2xl w-full max-w-lg transition-all
                     ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
                 }`}
             >

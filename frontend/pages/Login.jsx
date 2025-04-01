@@ -148,9 +148,9 @@ const Login = () => {
               </div>
               {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
             </div>
-            {
+            {/* {
               state === "Login" && <p className='text-primary mt-5 float-right underline cursor-pointer'>Forgot Password</p>
-            }
+            } */}
             <button type='submit' className='bg-primary text-white w-full mt-5 py-2 rounded-md text-base'>{state === 'Sign Up' ? 'Create Account' : 'Login'}</button>
             {
               state === 'Sign Up'

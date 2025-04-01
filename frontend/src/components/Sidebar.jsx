@@ -1,19 +1,23 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, Link } from 'react-router-dom'
 import { LuLayoutGrid, LuPiggyBank, LuHandCoins, LuShieldCheck, LuLogOut } from 'react-icons/lu'
 import { PiUserCircle } from "react-icons/pi";
 import { AppContext } from '../context/AppContext';
 
-const Sidebar = () => {
+const Sidebar = ({ setShowMenu, showMenu }) => {
 
-  const {token, setToken, navigate} = useContext(AppContext)
+  const { token, setToken, navigate } = useContext(AppContext)
+
+  const closeSidebar = () => {
+    setShowMenu(false);
+  };
 
   const logout = () => {
     setToken(false)
     localStorage.removeItem('token')
     navigate('/')
-}
+  }
 
   const menulist = [
     {
@@ -44,7 +48,12 @@ const Sidebar = () => {
 
   return (
     <div className='min-h-screen py-5 pr-8 border-r border-gray-200'>
-      <img className='ml-5' src={assets.logo} alt="logo" height={100} width={160} /> 
+      <div className='flex items-center justify-between'>
+        <img onClick={() => navigate('/dashboard')} className='ml-5' src={assets.logo} alt="logo" height={100} width={160} />
+        {showMenu && (
+        <img className='w-7 md:hidden' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
+        )}
+      </div>
       <div className='mt-12'>
 
         {menulist.map((menu, index) => (
@@ -52,6 +61,7 @@ const Sidebar = () => {
             key={menu.id}
             to={menu.path}
             end={menu.path === '/dashboard'} // Applies "end" only for the dashboard
+            onClick={closeSidebar}
             className={({ isActive }) =>
               `flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-primary hover:bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200
               ${isActive ? 'text-primary bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200' : ''}`}>
@@ -70,6 +80,7 @@ const Sidebar = () => {
 
       <NavLink
         to={'/dashboard/profile'}
+        onClick={closeSidebar}
         className={({ isActive }) =>
           `flex gap-2 items-center text-gray-500 font-medium py-4 px-6 cursor-pointer rounded-r-3xl mb-2 hover:text-primary hover:bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200
               ${isActive ? 'text-primary bg-linear-to-r from-cyan-100 via-blue-100 to-indigo-200' : ''}`}>

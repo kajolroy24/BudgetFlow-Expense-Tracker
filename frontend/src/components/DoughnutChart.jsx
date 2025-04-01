@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { PieChart, Pie, Cell, Tooltip, Label, ResponsiveContainer } from "recharts";
 import { AppContext } from '../context/AppContext';
 
-const DoughnutChart = () => {
+const DoughnutChart = ({variant}) => {
 
     const { budgets, expenses, calculateTotal } = useContext(AppContext)
 
@@ -70,7 +70,7 @@ const DoughnutChart = () => {
             </div>
 
             {/* Custom Legend */}
-            <div className="flex flex-wrap justify-center gap-3 bg-gray-100 p-2 rounded-2xl">
+            <div className={`flex flex-wrap justify-center gap-3 bg-gray-100 p-2 rounded-2xl ${variant === 'expensePage' ? 'lg:w-2xs' : 'w-full'}`}>
                 {data.map((item, index) => (
                     <div key={index} className="flex items-center space-x-2">
                         <span

@@ -84,7 +84,7 @@ const Expenses = () => {
       <h2 className='text-3xl font-bold flex items-center justify-between'>
         My Expenses
         <div className='flex gap-4'>
-          <button onClick={handleEditClick} className='flex items-center gap-2 bg-indigo-100 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
+          <button onClick={handleEditClick} className='flex items-center gap-2 bg-violet-200 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
           <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
         </div>
       </h2>

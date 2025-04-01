@@ -45,7 +45,7 @@ const AddExpense = ({ budgetId, refreshData }) => {
 
     return (
         <form onSubmit={onAddNewExpense}>
-            <div className='border border-gray-200 p-5 rounded-lg'>
+            <div className='bg-white border border-gray-200 p-5 rounded-2xl'>
                 <h2 className='font-bold text-lg'>Add Expense</h2>
                 <div className='mt-2'>
                     <h2 className='text-black text-sm font-medium my-1'>Expense Name</h2>
