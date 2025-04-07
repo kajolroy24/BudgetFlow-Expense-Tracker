@@ -44,16 +44,16 @@ const AiSummary = () => {
 
 
     return (
-        <div className='p-7 border bg-white border-gray-200 mt-7 rounded-2xl flex items-center justify-between'>
+        <div className='p-7 border bg-white border-gray-200 dark:border-none dark:bg-[#40375C] mt-7 rounded-2xl flex items-center justify-between'>
             <div className='w-full'>
                 <div className='flex mb-2 flex-row space-x-2 items-center'>
                 <HiOutlineSparkles className='rounded-full text-white w-10 h-10 p-1.5 bg-gradient-to-r from-blue-400 via-violet-400 to-rose-300' />
-                    <h2 className='font-medium text-lg'>AI Budgeting Assistant</h2>
+                    <h2 className='font-medium text-lg dark:text-white'>AI Budgeting Assistant</h2>
                 </div>
                 {isSummaryFetched ? (
-                    <h2>
+                    <h2 className='dark:text-white'>
                         <ReactMarkdown>{aiResponse}</ReactMarkdown>
-                    </h2>
+                    </h2> 
                 ) : (
                     <div className='w-full'>
                         <div className="leading-relaxed mb-3 w-full h-3 rounded animate-pulse bg-gradient-to-r from-blue-200 via-violet-200 to-rose-200"></div>

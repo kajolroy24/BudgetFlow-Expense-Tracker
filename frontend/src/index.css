@@ -6,6 +6,23 @@
 
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Webkit browsers like Chrome, Safari */
+  }
+}
+
 * {
   font-family: Outfit;
 }
+
+

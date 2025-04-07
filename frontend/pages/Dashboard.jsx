@@ -26,8 +26,8 @@ const Dashboard = () => {
       {(budgets.length === 0 || expenses.length === 0) ? (
         <div className="flex items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 200px)' }}>
         <div className='flex flex-col items-center'>
-          <img className='w-24 h-24 sm:w-36 sm:h-36 md:w-60 md:h-60 lg:w-90 lg:h-90 object-cover' src={assets.vector} alt="" />
-          <p className="text-gray-700 text-xl font-medium mb-4">Oops! Looks like you haven't added any budgets or expenses yet.<br/>Start by creating your first budget and tracking your expenses.</p>
+          <img className='md:w-80 md:h-80 w-60 h-60 object-cover' src={assets.vector} alt="" />
+          <p className="text-gray-700 md:text-xl text-lg font-medium mb-4 dark:text-white">Oops! Looks like you haven't added any budgets or expenses yet.<br/>Start by creating your first budget and tracking your expenses.</p>
           <button 
             onClick={() => navigate('/dashboard/budgets')} 
             className="px-4 py-2 bg-primary text-white rounded-xl hover:bg-violet-500 transition duration-200"
@@ -38,8 +38,8 @@ const Dashboard = () => {
       </div>
       ) : (
       <>
-        <h2 className='font-bold text-3xl'>👋 Hi, {capitalize(userData.name)}</h2>
-        <p className='text-gray-500 mt-2'>Here's what's happening with your money. Let's manage your expenses.</p>
+        <h2 className='font-bold text-3xl dark:text-white'>👋 Hi, {capitalize(userData.name)}</h2>
+        <p className='text-gray-500 mt-2 dark:text-[#B5B0C7]'>Here's what's happening with your money. Let's manage your expenses.</p>
 
         <AiSummary />
 
@@ -59,7 +59,7 @@ const Dashboard = () => {
           <div className='flex flex-col gap-5'>
             <DoughnutChart />
 
-            <h2 className='font-semibold text-gray-700 text-xl'>Latest Budgets</h2>
+            <h2 className='font-semibold text-gray-700 text-xl dark:text-white'>Latest Budgets</h2>
             {latestBudgets.map((budget, index) => {
               const budgetExpenses = expenses.filter(expense => expense.budgetId === budget._id);
               return <BudgetItem

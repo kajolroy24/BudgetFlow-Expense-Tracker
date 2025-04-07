@@ -32,13 +32,13 @@ const Navbar = () => {
     return (
         <div className='bg-white py-3 px-6 fixed w-full z-20 top-0 start-0 flex justify-between items-center border border-gray-200'>
             <img onClick={() => navigate('/')} src={assets.logo} alt='logo' width={160} height={100} />
-            <div className='flex items-center gap-4'>
-                <button onClick={goToDashboard} className='px-4 py-2.5 text-sm rounded-full border border-gray-300 font-light hidden md:block hover:bg-gray-100'>Dashboard</button>
+            <div className='flex items-center'>
+                <button onClick={goToDashboard} className='px-4 py-2.5 mr-4 text-sm rounded-full border border-gray-300 font-light hidden md:block hover:bg-gray-100'>Dashboard</button>
                 {
                     isAuthenticated
                         ? (<>
-                            <div className='flex items-center gap-2 cursor-pointer group relative'>
-                                <button className='hidden md:flex items-center border border-gray-300 hover:bg-gray-100 rounded-full px-2 py-1.5'>
+                            <div className='flex items-center cursor-pointer group relative'>
+                                <button className='hidden md:flex items-center border border-gray-300 hover:bg-gray-100 rounded-full px-1.5 py-1'>
                                     <img className='w-11 rounded-full mr-3' src={userData.image} alt="image" />
                                     <span className='font-light text-left text-[15px] mr-2'>
                                         <p className='font-medium capitalize'>{userData.name}</p>

@@ -10,6 +10,11 @@ const AppContextProvider = (props) => {
   const navigate = useNavigate();
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
+  const [darkMode, setDarkMode] = useState(() => {
+    // Check localStorage for user's dark mode preference
+    return localStorage.getItem('darkMode') === 'true';
+  });
+
   const [token, setToken] = useState('')
   const [userData, setUserData] = useState(false)
   const [budgets, setBudgets] = useState([])
@@ -21,6 +26,16 @@ const AppContextProvider = (props) => {
       setToken(storedToken);
     }
   }, []);
+
+    // Save dark mode preference to localStorage whenever it changes
+    useEffect(() => {
+      localStorage.setItem('darkMode', darkMode);
+      if (darkMode) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    }, [darkMode]);
 
   const calculateTotal = (arr) => arr.reduce((total, item) => total + item.amount, 0);
 
@@ -92,7 +107,8 @@ const AppContextProvider = (props) => {
     getUserBudgets,
     expenses, setExpenses,
     getUserExpenses,
-    capitalize, calculateTotal
+    capitalize, calculateTotal,
+    darkMode, setDarkMode
   }
 
   useEffect(() => {

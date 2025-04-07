@@ -8,7 +8,8 @@ import Budgets from '../pages/Budgets'
 import Expenses from '../pages/Expenses'
 import Upgrade from '../pages/Upgrade'
 import Navbar from "./components/Navbar"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "./context/AppContext"
 import ExpenseDataPage from "../pages/ExpenseDataPage"
 import Profile from "../pages/Profile"
 
@@ -16,6 +17,16 @@ function App() {
 
   const location = useLocation();
   const [showNavbar, setShowNavbar] = useState(false);
+
+  const { darkMode } = useContext(AppContext);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [darkMode]);
 
   // Only show Navbar on specific routes
   useEffect(() => {

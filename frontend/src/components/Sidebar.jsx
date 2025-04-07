@@ -7,7 +7,7 @@ import { AppContext } from '../context/AppContext';
 
 const Sidebar = ({ setShowMenu, showMenu }) => {
 
-  const { token, setToken, navigate } = useContext(AppContext)
+  const { token, setToken, navigate, darkMode, setDarkMode } = useContext(AppContext)
 
   const closeSidebar = () => {
     setShowMenu(false);
@@ -47,7 +47,7 @@ const Sidebar = ({ setShowMenu, showMenu }) => {
   ]
 
   return (
-    <div className='min-h-screen py-5 pr-8 border-r border-gray-200'>
+    <div className='min-h-screen py-5 pr-8 border-r border-gray-200 dark:bg-black'>
       <div className='flex items-center justify-between'>
         <img onClick={() => navigate('/dashboard')} className='ml-5' src={assets.logo} alt="logo" height={100} width={160} />
         {showMenu && (
@@ -73,10 +73,23 @@ const Sidebar = ({ setShowMenu, showMenu }) => {
       </div>
 
       <hr className="ml-6 mt-4 mb-4 border-gray-300" />
-      {/* 
-      <div className='flex gap-2 items-center fixed bottom-10 p-5'>
-        Profile
-      </div> */}
+      
+       {/* Dark Mode Toggle */}
+       <div className="flex gap-2 items-center fixed bottom-10 p-5">
+        <label className="flex items-center cursor-pointer">
+          <div className="relative">
+            <input
+              type="checkbox"
+              checked={darkMode}
+              onChange={() => setDarkMode(!darkMode)} // Toggle dark mode on change
+              className="sr-only"
+            />
+            <div className="w-10 h-5 bg-gray-200 rounded-full"></div>
+            <div className={`dot absolute top-1 left-1 w-3 h-3 bg-white rounded-full transition ${darkMode ? 'transform translate-x-5' : ''}`}></div>
+          </div>
+          <span className="ml-2 text-gray-700 dark:text-white">{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
+        </label>
+      </div>
 
       <NavLink
         to={'/dashboard/profile'}

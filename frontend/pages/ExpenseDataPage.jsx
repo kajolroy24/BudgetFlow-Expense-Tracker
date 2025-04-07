@@ -14,13 +14,13 @@ const ExpenseDataPage = ({ budgetData }) => {
       {(expenses.length === 0) ? (
         <div className="flex items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 135px)' }}>
           <div className='flex flex-col items-center'>
-            <img className='w-90 h-90' src={assets.vector} alt="" />
-            <p className="text-gray-700 text-xl font-medium mb-4">Oops! Looks like you haven't added any budgets or expenses yet.<br />Start by creating your first budget and tracking your expenses.</p>
+            <img className='md:w-80 md:h-80 w-60 h-60 object-cover' src={assets.vector} alt="" />
+            <p className="text-gray-700 text-lg md:text-xl font-medium mb-4">Oops! Looks like you haven't added any budgets or expenses yet.<br />Start by creating your first budget and tracking your expenses.</p>
             <button
               onClick={() => navigate('/dashboard/budgets')}
               className="px-4 py-2 bg-primary text-white rounded-xl hover:bg-violet-500 transition duration-200"
             >
-              Create Budget
+              Add Expense
             </button>
           </div>
         </div>
