@@ -40,7 +40,7 @@ function App() {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer theme={darkMode ? "dark" : "light"} />
       {showNavbar && <Navbar />}
       <Routes>
         <Route path='/' element={<Home />} />

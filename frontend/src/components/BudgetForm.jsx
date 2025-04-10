@@ -88,20 +88,20 @@ const BudgetForm = ({ isOpen, closeForm, refreshData, isEdit, existingBudget }) 
             ${isOpen ? 'visible bg-gray-500/75' : 'invisible'
             }`}
         >
-            <div className={`bg-white sm:rounded-2xl shadow-2xl w-full max-w-lg transition-all
+            <div className={`bg-white dark:bg-[#211641] sm:rounded-2xl shadow-2xl w-full max-w-lg transition-all
                     ${isOpen ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
                 }`}
             >
                 <div className="relative float-end p-4">
-                    <button onClick={closeForm} type="button" className="text-gray-500 hover:text-black h-4 w-4 ml-auto inline-flex items-center">
+                    <button onClick={closeForm} type="button" className="text-gray-500 hover:text-black hover:dark:text-white h-4 w-4 ml-auto inline-flex items-center">
                         <CloseIcon />
                     </button>
                 </div>
                 <form onSubmit={handleSubmit} className='p-6 text-center sm:text-left' >
-                    <h1 className='font-semibold text-lg'>{isEdit ? 'Edit Budget' : 'Create New Budget'}</h1>
+                    <h1 className='font-semibold text-lg dark:text-white'>{isEdit ? 'Edit Budget' : 'Create New Budget'}</h1>
 
                     <div className='mt-5'>
-                        <button className="text-lg outline outline-gray-200 rounded px-4 py-1.5" 
+                        <button className="text-lg outline outline-gray-200 dark:outline-gray-500 rounded px-4 py-1.5" 
                         type='button'
                         onClick={() => setOpenEmojiPicker(!openEmojiPicker)}
                         >
@@ -117,8 +117,8 @@ const BudgetForm = ({ isOpen, closeForm, refreshData, isEdit, existingBudget }) 
                         )}
                     </div>
                     <div className='mt-2'>
-                        <h2 className='text-black text-sm font-medium my-1'>Budget Name</h2>
-                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
+                        <h2 className='text-black dark:text-white text-sm font-medium my-1'>Budget Name</h2>
+                        <input className='border border-gray-200 dark:border-gray-500 dark:text-[#B5B0C7] rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
                             type='text'
                             placeholder="e.g. Home Decor"
                             name='name'
@@ -128,8 +128,8 @@ const BudgetForm = ({ isOpen, closeForm, refreshData, isEdit, existingBudget }) 
                         />
                     </div>
                     <div className='mt-2'>
-                        <h2 className='text-black text-sm font-medium my-1'>Budget Amount</h2>
-                        <input className='border border-gray-200 rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
+                        <h2 className='text-black dark:text-white text-sm font-medium my-1'>Budget Amount</h2>
+                        <input className='border border-gray-200 dark:border-gray-500 dark:text-[#B5B0C7] rounded-sm w-full h-10 px-3 py-2 mt-1 text-sm focus:outline-none focus:border-primary focus:border-2'
                             type="number"
                             placeholder="e.g. 5000$"
                             name='amount'

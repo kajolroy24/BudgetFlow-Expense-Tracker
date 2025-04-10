@@ -33,7 +33,7 @@ const Expenses = () => {
   const fetchBudgetData = async () => {
     const selectedBudget = budgets.find(budget => budget._id === budgetId)
     setBudgetData(selectedBudget)
-    
+
     // Filter expenses that belong to the selected budget
     const filteredExpenses = expenses.filter(expense => expense.budgetId === budgetId);
     setExpenseData(filteredExpenses);
@@ -81,23 +81,26 @@ const Expenses = () => {
 
   return (
     <div className='p-10'>
-      <h2 className='text-3xl font-bold flex items-center justify-between'>
+      <h2 className='text-3xl dark:text-white font-bold flex items-center justify-between'>
         My Expenses
-        <div className='flex gap-4'>
-          <button onClick={handleEditClick} className='flex items-center gap-2 bg-violet-200 text-primary w-20 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegEdit size={20} />Edit</button>
-          <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 text-red-600 w-24 h-10 px-4 py-2 rounded-md text-sm font-medium'><FaRegTrashCan />Delete</button>
-        </div>
       </h2>
       <BudgetForm
-        isOpen={isEdit} 
-        closeForm={handleCancelEdit} 
-        refreshData={getUserBudgets} 
-        isEdit={isEdit} 
+        isOpen={isEdit}
+        closeForm={handleCancelEdit}
+        refreshData={getUserBudgets}
+        isEdit={isEdit}
         existingBudget={budgetData}
-       />
+      />
       <AlertBox isOpen={isOpen} closeAlert={closeAlert} onConfirm={deleteBudget} />
       <div className='grid grid-cols-1 md:grid-cols-2 mt-6 gap-5'>
-        {budgetData ? <BudgetItem budget={budgetData} expense={expenseData ?? []} />
+        {budgetData ? <div>
+          <BudgetItem budget={budgetData} expense={expenseData ?? []} />
+          <div className='flex gap-4 pt-6 items-center md:justify-end justify-center'>
+            <button onClick={handleEditClick} className='flex items-center gap-2 bg-violet-200 dark:bg-[#372d54] dark:text-purple-400 text-primary w-20 h-10 px-4 py-2 rounded-lg text-sm font-medium'><FaRegEdit size={20} />Edit</button>
+            <button onClick={showAlert} className='flex items-center gap-2 bg-red-100 dark:bg-[#3b2626] dark:text-500 text-red-600 w-24 h-10 px-4 py-2 rounded-lg text-sm font-medium'><FaRegTrashCan />Delete</button>
+          </div>
+        </div>
+
           : <div className='h-[150px] w-full bg-slate-200 rounded-lg animate-pulse'></div>
         }
         <AddExpense budgetId={budgetId} refreshData={getUserExpenses} />

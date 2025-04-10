@@ -12,7 +12,7 @@ const DashLayout = ({ children }) => {
             </div>
             <div className='md:ml-64'>
                 <DashboardNav />
-                <div className="bg-purple-50 dark:bg-[#352D49] min-h-screen">
+                <div className="bg-purple-50 dark:bg-[#140a2c] min-h-screen">
                 {children}
                 </div>
             </div>

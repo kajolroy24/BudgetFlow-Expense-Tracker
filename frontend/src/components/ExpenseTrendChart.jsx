@@ -5,7 +5,7 @@ import { AppContext } from "../context/AppContext";
 
 const ExpenseTrendChart = () => {
     const { expenses, budgets, darkMode } = useContext(AppContext);
-    const [view, setView] = useState("weekly"); // Toggle state for weekly/monthly
+    const [view, setView] = useState("monthly"); // Toggle state for weekly/monthly
 
     const colors = ["#f34aed", "#43d9e2", "#7748ee", "#FFD93D", "#BFEE48", "#3D63FF"];
     const getColor = (index) => colors[index % colors.length];
@@ -42,13 +42,29 @@ const ExpenseTrendChart = () => {
         return entry;
     });
 
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+            return (
+                <div className='rounded-xl bg-[#faf5ff] dark:bg-[#140a2c] border border-purple-200 dark:border-0 py-2 px-3'>
+                    <h4 className='dark:text-white font-medium py-0.5'>{label}</h4>
+                    {payload.map((item, index) => (
+                        <p key={index} className='py-0.5' style={{ color: item.color }}>
+                            {item.name}: {item.value}
+                        </p>
+                    ))}
+                </div>
+            );
+        }
+        return null;
+    };
+
     return (
-        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl w-full capitalize dark:bg-[#40375C]">
+        <div className="p-5 bg-white shadow hover:shadow-md rounded-2xl w-full capitalize dark:bg-[#211641]">
             <div className="flex justify-between items-center mb-5">
                 <h3 className="text-xl text-gray-700 font-semibold dark:text-white">Expense Trends</h3>
                 <div className="flex gap-2">
-                    <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary text-white" : "bg-purple-100 text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
-                    <button className={`px-2 py-1 rounded-md text-sm ${view === "monthly" ? "bg-primary text-white" : "bg-purple-100 text-primary"}`} onClick={() => setView("monthly")}>Monthly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "weekly" ? "bg-primary  text-white" : "bg-purple-100 dark:bg-[#2e2637] text-primary"}`} onClick={() => setView("weekly")}>Weekly</button>
+                    <button className={`px-2 py-1 rounded-md text-sm ${view === "monthly" ? "bg-primary  text-white" : "bg-purple-100 dark:bg-[#2e2637] text-primary"}`} onClick={() => setView("monthly")}>Monthly</button>
                 </div>
             </div>
 
@@ -76,10 +92,14 @@ const ExpenseTrendChart = () => {
                             fillOpacity={0.8}
                         />
                     ))}
-                    <Tooltip contentStyle={{ borderRadius: '10px', backgroundColor: '#faf5ff' }} />
+
+                        <Tooltip 
+                              content={<CustomTooltip darkMode={darkMode} />} // Use custom tooltip
+                              cursor={{ fill: darkMode ? '#b5b0c74a' : '#f3f4f6' }} 
+                            />
                     <Legend
                         content={({ payload }) => (
-                            <div className="flex flex-wrap justify-center space-x-4 mt-3 bg-gray-100 p-2 rounded-2xl dark:bg-[#352D49]">
+                            <div className="flex flex-wrap justify-center space-x-4 mt-3 bg-gray-100 p-2 rounded-2xl dark:bg-[#140a2c]">
                                 {payload.map((entry, index) => (
                                     <div key={`item-${index}`} className="flex items-center space-x-2">
                                         <span

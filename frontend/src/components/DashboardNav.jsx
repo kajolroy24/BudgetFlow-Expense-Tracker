@@ -6,7 +6,7 @@ import Sidebar from './Sidebar'
 
 const DashboardNav = () => {
 
-  const { token, setToken, userData, navigate } = useContext(AppContext)
+  const { token, setToken, userData, navigate, darkMode } = useContext(AppContext)
 
   const [showMenu, setShowMenu] = useState(false)
 
@@ -17,9 +17,9 @@ const DashboardNav = () => {
   }
 
   return (
-    <div className='py-4 px-8 border-b border-gray-200 flex items-center justify-between relative' >
+    <div className='py-4 px-8 border-b border-gray-200 flex items-center justify-between relative dark:bg-[#211641] dark:text-white dark:border-b-gray-700' >
       <div>
-        <img onClick={() => setShowMenu(true)} className='w-6 md:hidden transition-transform duration-300' src={assets.menu_icon} alt="menu" />
+        <img onClick={() => setShowMenu(true)} className='w-6 md:hidden transition-transform duration-300' src={`${darkMode ? assets.menu_icon_dark : assets.menu_icon_light}`} alt="menu" />
         {/* Mobile Menu  */}
         <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden left-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
           <Sidebar setShowMenu={setShowMenu} showMenu={showMenu} />

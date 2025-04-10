@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
 
-    const { token, setToken, userData, navigate } = useContext(AppContext)
+    const { token, setToken, userData, navigate, darkMode } = useContext(AppContext)
 
     const [showMenu, setShowMenu] = useState(false)
 
@@ -30,24 +30,24 @@ const Navbar = () => {
     }
 
     return (
-        <div className='bg-white py-3 px-6 fixed w-full z-20 top-0 start-0 flex justify-between items-center border border-gray-200'>
-            <img onClick={() => navigate('/')} src={assets.logo} alt='logo' width={160} height={100} />
+        <div className='bg-white dark:bg-[#211641] py-3 px-6 fixed w-full z-20 top-0 start-0 flex justify-between items-center border-b border-gray-200 dark:border-gray-700'>
+            <img onClick={() => navigate('/')} src={assets.logo} alt='logo' width={190} height={100} />
             <div className='flex items-center'>
-                <button onClick={goToDashboard} className='px-4 py-2.5 mr-4 text-sm rounded-full border border-gray-300 font-light hidden md:block hover:bg-gray-100'>Dashboard</button>
+                <button onClick={goToDashboard} className='px-4 py-2.5 mr-4 text-sm rounded-full border border-primary text-primary bg-purple-100 dark:bg-[#140a2c] hover:bg-primary hover:text-white transition-all hidden md:block'>Dashboard</button>
                 {
                     isAuthenticated
                         ? (<>
                             <div className='flex items-center cursor-pointer group relative'>
-                                <button className='hidden md:flex items-center border border-gray-300 hover:bg-gray-100 rounded-full px-1.5 py-1'>
+                                <button className='hidden md:flex items-center border border-gray-300 dark:border-gray-500 rounded-full px-1.5 py-1'>
                                     <img className='w-11 rounded-full mr-3' src={userData.image} alt="image" />
-                                    <span className='font-light text-left text-[15px] mr-2'>
+                                    <span className='font-light dark:text-white text-left text-[15px] mr-2'>
                                         <p className='font-medium capitalize'>{userData.name}</p>
                                         <p className='font-light'>{userData.email}</p>
                                     </span>
                                     <IoChevronDown color='gray' size={15} />
                                 </button>
                                 <div className='absolute top-0 right-1 pt-18 font-medium text-gray-700 z-20 hidden group-hover:block'>
-                                    <div className='min-w-48 bg-purple-50 rounded-2xl border border-purple-200 flex flex-col gap-4 p-4'>
+                                    <div className='min-w-48 bg-purple-50 dark:bg-[#211641] dark:text-[#B5B0C7] rounded-2xl dark:border-gray-700 border border-purple-200 flex flex-col gap-4 p-4'>
                                         <div className='flex items-center hover:text-primary cursor-pointer'>
                                             <FaUser className='mr-3' />
                                             <p onClick={() => navigate('/dashboard/profile')} className='hover:text-primary cursor-pointer'>My Profile</p>
@@ -62,14 +62,14 @@ const Navbar = () => {
                             </div>
 
                             <div>
-                                <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="menu" />
+                                <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={`${darkMode ? assets.menu_icon_dark : assets.menu_icon_light}`} alt="menu" />
                                 {/* Mobile Menu  */}
-                                <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+                                <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white dark:bg-[#211641] transition-all`}>
                                     <div className='flex items-center justify-between px-5 py-6'>
                                         <img className='w-36' src={assets.logo} alt="" />
-                                        <img className='w-7' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
+                                        <img className='w-5' onClick={() => setShowMenu(false)} src={`${darkMode ? assets.close_icon_dark : assets.close_icon_light}`} alt="" />
                                     </div>
-                                    <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium'>
+                                    <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg dark:text-[#B5B0C7] hover:text-primary font-medium'>
                                         <NavLink onClick={() => setShowMenu(false)} to={'/dashboard'}><p className='px-4 py-2 rounded inline-block cursor-pointer'>DASHBOARD</p></NavLink>
                                         <NavLink onClick={() => setShowMenu(false)} to={'/dashboard/profile'}><p className='px-4 py-2 rounded inline-block cursor-pointer'>PROFILE</p></NavLink>
                                         <div className='flex items-center hover:text-red-500 cursor-pointer' onClick={logout}>
