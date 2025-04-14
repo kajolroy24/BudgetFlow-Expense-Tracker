@@ -79,7 +79,7 @@ const Sidebar = ({ setShowMenu, showMenu }) => {
       <hr className="ml-6 mt-4 mb-4 border-gray-300" />
 
       {/* Dark Mode Toggle */}
-      <div className="flex gap-2 items-center fixed bottom-10 px-6 py-5">
+      <div className={`flex gap-2 items-center fixed bottom-10 px-6 py-5 ${showMenu ? 'block' : 'hidden'} md:block`}>
         <label className="flex items-center cursor-pointer">
           <div className="relative">
             <input

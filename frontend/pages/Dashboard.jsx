@@ -11,7 +11,7 @@ import { assets } from '../src/assets/assets'
 
 const Dashboard = () => {
 
-  const { userData, capitalize, budgets, expenses, calculateTotal, navigate } = useContext(AppContext)
+  const { userData, capitalize, budgets, expenses, calculateTotal, navigate, darkMode } = useContext(AppContext)
 
   // Calculate total expenses
   const totalBudget = calculateTotal(budgets);
@@ -26,7 +26,7 @@ const Dashboard = () => {
       {(budgets.length === 0 || expenses.length === 0) ? (
         <div className="flex items-center justify-center text-center" style={{ minHeight: 'calc(100vh - 200px)' }}>
         <div className='flex flex-col items-center'>
-          <img className='md:w-80 md:h-80 w-60 h-60 object-cover' src={assets.vector} alt="" />
+          <img className='md:w-80 md:h-80 w-60 h-60 object-cover' src={`${darkMode ? assets.vector_dark : assets.vector_light}`} alt="" />
           <p className="text-gray-700 md:text-xl text-lg font-medium mb-4 dark:text-white">Oops! Looks like you haven't added any budgets or expenses yet.<br/>Start by creating your first budget and tracking your expenses.</p>
           <button 
             onClick={() => navigate('/dashboard/budgets')} 
