@@ -91,13 +91,13 @@ const Login = () => {
 
 
   return (
-    <section className="min-h-screen bg-white dark:bg-[#140a2c] bg-gradient-to-l from-violet-500/20 via-violet-400/10 to-white/20 dark:bg-gradient-to-l dark:from-violet-500/20 dark:via-violet-400/10 dark:to-[#140a2c]/20 pt-[4rem]">
-      <div className="lg:grid lg:h-[90vh] lg:grid-cols-12 overflow-hidden">
-        <div className="relative xl:flex items-center justify-center sm:hidden h-full lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
+    <section className="min-h-screen flex items-center justify-center bg-white dark:bg-[#140a2c] bg-gradient-to-l from-violet-500/20 via-violet-400/10 to-white/20 dark:bg-gradient-to-l dark:from-violet-500/20 dark:via-violet-400/10 dark:to-[#140a2c]/20 pt-[4rem]">
+      <div className="flex w-full lg:h-[90vh] lg:flex-row-reverse flex-col-reverse overflow-hidden">
+        <div className="relative hidden lg:flex items-center justify-center w-full xl:w-3/5 h-full">
           <img
             alt=""
             src={`${darkMode ? assets.login_dark : assets.login_light}`}
-            className="xl:h-120 xl:w-180 w-100 h-120 object-cover"
+            className="h-90 w-150 xl:h-120 xl:w-180 object-cover"
           />
         </div>
         <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">

@@ -21,12 +21,12 @@ const BudgetItem = ({ budget, expense }) => {
                         <h2 className='text-sm text-gray-500 dark:text-[#B5B0C7]'>{expense.length || 0} items</h2>
                     </div>
                 </div>
-                <h2 className='font-bold text-primary text-lg'>${budget.amount}</h2>
+                <h2 className='font-bold text-primary text-lg'>₹{budget.amount}</h2>
             </div>
             <div className='mt-5'>
                 <div className='flex items-center justify-between mb-3'>
-                    <h2 className='text-xs text-slate-400 dark:text-[#B5B0C7]'>${totalSpent} Spent</h2>
-                    <h2 className='text-xs text-slate-400 dark:text-[#B5B0C7]'>${remaining} Remaining</h2>
+                    <h2 className='text-xs text-slate-400 dark:text-[#B5B0C7]'>₹{totalSpent} Spent</h2>
+                    <h2 className='text-xs text-slate-400 dark:text-[#B5B0C7]'>₹{remaining} Remaining</h2>
                 </div>
                 <div className='w-full bg-slate-300 h-2 rounded-full dark:bg-[#B5B0C7]'>
                     <div className='bg-primary h-2 rounded-full'
