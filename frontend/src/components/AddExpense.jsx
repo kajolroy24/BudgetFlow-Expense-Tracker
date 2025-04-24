@@ -3,7 +3,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import dayjs from 'dayjs'
-import LocalizedFormat from 'dayjs/plugin/LocalizedFormat.js'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 
 const AddExpense = ({ budgetId, refreshData }) => {
 
@@ -16,7 +16,7 @@ const AddExpense = ({ budgetId, refreshData }) => {
         event.preventDefault();
 
         try {
-            dayjs.extend(LocalizedFormat)
+            dayjs.extend(localizedFormat)
             const currentDate = dayjs().format('ll')
 
             const formData = {
