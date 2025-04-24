@@ -3,7 +3,7 @@ import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import dayjs from 'dayjs'
-import LocalizedFormat from 'dayjs/plugin/LocalizedFormat'
+import LocalizedFormat from 'dayjs/plugin/LocalizedFormat.js'
 
 const AddExpense = ({ budgetId, refreshData }) => {
 
