@@ -8,7 +8,7 @@ export const AppContext = createContext();
 const AppContextProvider = (props) => {
 
   const navigate = useNavigate();
-  const backendUrl = "https://budget-flow-backend.onrender.com"
+  const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const [darkMode, setDarkMode] = useState(() => {
     // Check localStorage for user's dark mode preference
