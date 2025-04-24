@@ -25,4 +25,20 @@
   @apply transition-colors duration-200
 }
 
+.bg-grid-pattern {
+  position: fixed;  /* Fixed position so it stays in place */
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #80808012 1px, transparent 1px),
+  linear-gradient(to bottom, #80808012 1px, transparent 1px);
+  background-size: 50px 50px;
+  z-index: -1;  /* Ensure it's behind the content */
+  pointer-events: none; /* Disable any interaction with the grid */
+  mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    #000 60%,
+    transparent 100%
+  );
+}
 

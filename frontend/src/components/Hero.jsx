@@ -11,8 +11,10 @@ const Hero = () => {
   const {darkMode, setDarkMode} = useContext(AppContext)
 
   return (
-    <section className='bg-gradient-to-br from-[#E760D4]/15 via-[#3ECFCA]/15 to-[#7B61FF]/15 bg-white dark:bg-[#140a2c] flex items-center flex-col'>
-            <div className="flex flex-col overflow-hidden">
+    <section className='relative flex items-center flex-col overflow-y-auto'>
+            {/* Grid Background */}
+            {/* <div className='absolute inset-0 bg-[linear-gradient(to_right,#73737320_1px,transparent_1px),linear-gradient(to_bottom,#73737320_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_50%,transparent_100%)] bg-[size:40px_40px] z-0' /> */}
+            <div className="flex flex-col z-10">
       <ContainerScroll
         titleComponent={
           <>
