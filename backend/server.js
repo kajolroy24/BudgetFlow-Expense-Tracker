@@ -13,15 +13,16 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
+app.use(cors())
 
 // configure cors
-const corsOptions = {
-    origin: process.env.FRONTEND_URL, 
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-TYpe", "Authorization"]
-};
-app.use(cors(corsOptions))
+// const corsOptions = {
+//     origin: process.env.FRONTEND_URL, 
+//     credentials: true,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     allowedHeaders: ["Content-TYpe", "Authorization"]
+// };
+// app.use(cors(corsOptions))
 
 // api endpoints
 app.use('/api/user', userRouter)
