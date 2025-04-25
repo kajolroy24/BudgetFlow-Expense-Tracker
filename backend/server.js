@@ -18,8 +18,8 @@ app.use(express.json())
 const corsOptions = {
     origin: process.env.FRONTEND_URL, 
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-TYpe", "Authorization"]
+    methods: ["GET","POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 };
 app.use(cors(corsOptions))
 
