@@ -1,5 +1,5 @@
 import express from "express";
-import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget, aiSummary, updateProfile } from "../controllers/userController.js ";
+import { loginUser, registerUser, getProfile, createBudget, getUserBudgets, addExpense, getUserExpenses, deleteExpenses, deleteBudget, updateBudget, aiSummary, updateProfile } from "../controllers/userController.js";
 import authUser from "../middlewares/authUser.js"
 import upload from "../middlewares/multer.js"
 
