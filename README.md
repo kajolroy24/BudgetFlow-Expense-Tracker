@@ -47,6 +47,7 @@ To get started, you’ll need to have the following installed on your machine:
 ```bash
 git clone https://github.com/your-username/budgetflow.git
 cd budgetflow
+```
 
 ### Install Dependencies 🔧
 
@@ -76,6 +77,7 @@ GEMINI_API_KEY = your_gemini_api_key
 CLOUDINARY_NAME = your_cloundinary_name
 CLOUDINARY_API_KEY = your_cloundinary_api_key
 CLOUDINARY_SECRET_KEY = your_cloundinary_secret_key
+```
 
 ### Run the Application 🏃‍♂️
 
@@ -84,31 +86,33 @@ CLOUDINARY_SECRET_KEY = your_cloundinary_secret_key
 ```bash
 cd backend
 npm run dev
+```
 
 2. **Start the frontend**:
 
 ```bash
 cd frontend
 npm start
+```
 
 ## Screenshots 📸
 
 Here are some screenshots showcasing the app in action:
 
 1. **Home Page**:  
-   ![HomePage Screenshot](./assets/screenshots/dashboard.png)
+   ![HomePage Screenshot](./frontend/src/assets/screenshots/home.png)
 
 1. **Dashboard**:  
-   ![Dashboard Screenshot](https://via.placeholder.com/800x400.png?text=Dashboard+Screenshot)
+   ![Dashboard Screenshot](./frontend/src/assets/screenshots/dashboard.png)
 
 2. **Add Budgets**:  
-   ![Add Budgets Screenshot](https://via.placeholder.com/800x400.png?text=Expense+Breakdown+Screenshot)
+   ![Add Budgets Screenshot](./frontend/src/assets/screenshots/budgets.png)
 
 3. **Add Expenses**:  
-   ![Add Expenses Screenshot](https://via.placeholder.com/800x400.png?text=Budgets+vs+Actual+Spending+Bar+Chart)
+   ![Add Expenses Screenshot](./frontend/src/assets/screenshots/create_expenses.png)
 
 4. **Expense Breakdown**:  
-   ![Expense Breakdown Screenshot](https://via.placeholder.com/800x400.png?text=AI+Financial+Advice+Screenshot)
+   ![Expense Breakdown Screenshot](./frontend/src/assets/screenshots/expenses.png)
 
 License 📜
 This project is licensed under the MIT License - see the LICENSE file for details.
