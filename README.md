@@ -1,6 +1,6 @@
 # BudgetFlow - Expense Tracker with AI Insights 💸🤖
 
-BudgetFlow is a powerful MERN stack application designed to help users manage their finances. With features such as budget tracking, expense management, AI-powered financial advice, and advanced data visualization, users can track spending, set budgets, and receive personalized insights to help manage their money effectively. 💰📊
+BudgetFlow is a MERN stack application designed to help users manage their finances. With features such as budget tracking, expense management, AI-powered financial advice, and advanced data visualization, users can track spending, set budgets, and receive personalized insights to help manage their money effectively. 💰📊
 
 ## Table of Contents 📑
 - [Features](#features)
@@ -45,7 +45,7 @@ To get started, you’ll need to have the following installed on your machine:
 ### Clone the Repository 📂
 
 ```bash
-git clone https://github.com/your-username/budgetflow.git
+git clone https://github.com/your-username/budgetflow-expense-tracker.git
 cd budgetflow
 ```
 
@@ -85,14 +85,14 @@ CLOUDINARY_SECRET_KEY = your_cloundinary_secret_key
 
 ```bash
 cd backend
-npm run dev
+npm run start
 ```
 
 2. **Start the frontend**:
 
 ```bash
 cd frontend
-npm start
+npm run dev
 ```
 
 ## Screenshots 📸
@@ -109,12 +109,11 @@ Here are some screenshots showcasing the app in action:
    ![Add Budgets Screenshot](./frontend/src/assets/screenshots/budgets.png)
 
 3. **Add Expenses**:  
-   ![Add Expenses Screenshot](./frontend/src/assets/screenshots/create_expenses.png)
+   ![Add Expenses Screenshot](./frontend/src/assets/screenshots/add_expenses.png)
 
 4. **Expense Breakdown**:  
    ![Expense Breakdown Screenshot](./frontend/src/assets/screenshots/expenses.png)
 
-License 📜
-This project is licensed under the MIT License - see the LICENSE file for details.
+
 
 
