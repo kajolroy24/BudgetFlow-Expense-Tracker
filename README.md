@@ -79,7 +79,7 @@ CLOUDINARY_API_KEY = your_cloundinary_api_key
 CLOUDINARY_SECRET_KEY = your_cloundinary_secret_key
 ```
 
-### Run the Application 🏃‍♂️
+### Run the Application 🏃‍♀
 
 1. **Start the backend**:
 
