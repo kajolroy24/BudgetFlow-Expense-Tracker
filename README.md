@@ -7,7 +7,6 @@ BudgetFlow is a MERN stack application designed to help users manage their finan
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Screenshots](#screenshots)
-- [License](#license)
 
 ## Features ✨
 
